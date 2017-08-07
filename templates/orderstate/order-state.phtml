@@ -1,0 +1,49 @@
+<?php
+
+$thisOrder = current($number);
+$strOrderNumber = ($thisOrder['order_id']>0)? $thisOrder['order_id'] : $thisOrder['id'];
+
+echo ($alert ? '<p class="red">'.$alert.'</p>' : ''); ?>
+<table style="margin:auto; text-align:center;">
+
+	<?php echo ($alert ? '<tr><td><p style="color:red">'.$alert.'</p></tr></td>' : ''); ?>
+	<tr><td style="padding-bottom:15px;"> Ваш Заказ №<?=$strOrderNumber?> от <?=date('d.m.Y', $thisOrder['idate'])?> </td></tr>
+	<tr><td style="padding-bottom:15px;">Находится в состоянии: <?=$state['name']; ?></td> </tr>
+	<tr>
+		<td>
+			<form  method="post"  ><input type="submit" name="exit" value="Выход"  /></form>
+		</td>
+	</tr>
+	 
+</table>
+
+
+<h2 style="    margin-bottom: 15px;">Переписка:</h2>
+<?php if(count($corresp)>0){
+	
+	foreach($corresp as $id=>$corr){ ?>
+			<div class="quest box" style="    padding: 15px;">
+				<div class="head" style="    border-bottom: 1px solid grey;     padding-bottom: 5px;"><?=date("d.m.Y - h:i:s", $corr['idate']);?> | <?=$order['fio'];?></div>
+				<div class="text"><?=$corr['quest']?></div>
+			</div>
+			<?php if(trim($corr['answer'])!=''){ ?>
+				
+			<div class="answer " style="    padding: 20px;    padding-left: 50px;">
+				<div class="text"><?=$corr['answer']?></div>
+			</div>
+			<?php } ?>
+	<?php }
+	
+}else{
+	echo '<p>У вас нет переписки с менеджерами</p>';
+	echo '<h3>Хотите начать переписку?</h3>';
+} ?>
+<div  class="company-form" style="margin-top:30px">
+	<?php $form->header(); ?>
+
+	
+			Форма обратной связи: 
+		 <?php $form->field('quest', ''); ?>
+		<input type="submit" name="_submit" value="Задать вопрос" />
+	<?php $form->footer(); ?>
+</div>

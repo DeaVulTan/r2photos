@@ -1,0 +1,4 @@
+<div class="popup-dialog-wrapper">
+  <?php if ($this->parms['ok_id'] > 0) { ?><p><b>Заказ №<?php echo $this->parms['ok_id']; ?></b></p><?php } ?>
+  <p><?php echo nl2br(Utils::GetValue('text_after_order')); ?></p>
+</div>

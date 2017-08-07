@@ -1,0 +1,10 @@
+<?php echo $calendar; ?>
+<?php if (sizeOf($news) > 0) { ?>
+<?php foreach ($news as $id => $row) { ?>
+<div>
+ <a href="<?php echo $this->menuPath; ?>news/<?php echo $id; ?>-<?php echo $row['href']; ?>" title="<?php echo htmlspecialchars(trim($row['name'])); ?>"><strong><?php echo trim($row['name']); ?></strong></a><br />
+ <?php $announce = trim(preg_replace(array('/<p>/', '/<\/p>/', '/<br\s?\/>$/'), array('', '<br />', ''), $row['announce'])); echo $announce; ?><br />
+ <a href="<?php echo $this->menuPath; ?>news/<?php echo $id; ?>-<?php echo $row['href']; ?>" title="<?php echo htmlspecialchars(trim($row['name'])); ?>">подробнее</a>
+</div>
+<?php } ?>
+<?php } else echo "<p>Новостей нет.</p>"; ?>

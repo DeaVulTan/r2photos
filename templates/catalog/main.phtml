@@ -1,0 +1,6 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($parts) > 0) { ?>
+<ul>
+ <?php foreach ($parts as $id => $part) { ?><li><a href="<?php echo $this->menuPath; ?>catalog/<?php echo $id; ?>-<?php echo $part['href']; ?>" title="<?php echo htmlspecialchars($part['name']); ?>"><?php echo $part['name']; ?></a></li><?php } ?>
+</ul>
+<?php } ?>

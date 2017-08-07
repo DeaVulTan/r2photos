@@ -1,0 +1,7 @@
+<?php include( Site::GetTemplate( $this->name, 'menu' ) ); ?>
+<div class="block coll-8 coll-tablet">
+  <h1 class="work-h1">Личные данные</h1>
+  <div class="<?php if( Site::GetParms( 'isAjax' ) ) { echo ' popup-dialog-wrapper '; } ?>">
+    <p><?php echo nl2br(Utils::GetValue('text_after_change_self_data')); ?></p>
+  </div>
+</div>

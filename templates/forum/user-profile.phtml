@@ -1,0 +1,34 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<form method="post" name="userprofileForm" action="users_profilechange.htm" enctype="multipart/form-data">
+<input type="hidden" name="userId" value="<?php echo UID; ?>" />
+<table class="table w100">
+<tr class="td1">
+ <td width="20%">Ник</td>
+ <td><strong><?php echo (mb_strlen($user["nikname"], 'utf-8') ? $user["nikname"] : Action::Input('nikname', $user["nikname"])); ?></strong></td>
+</tr>
+<tr class="td2">
+ <td>E-mail</td>
+ <td><input type="text" class="input w100" name="email" value="<?php echo $user['email']; ?>" /></td>
+</tr>
+<tr class="td1">
+ <td>Телефоны</td>
+ <td><input type="text" class="input w100" name="phones" value="<?php echo $user['phones']; ?>" /></td>
+</tr>
+<tr class="td2">
+ <td valign="top">Аватар</td>
+ <td valign="middle" width="100%">
+  <table class="nonBorder">
+   <tr>
+    <td align="left" valign="top" width="100%"><input type="file" class="input w100" name="avatar" value="<?php echo $user['avatar']; ?>" /></td>
+    <td align="right"><?php if ($user["avatar"] && file_exists(Site::GetParms('absolutePath').$user["avatar"])) { ?><img src="<?php echo $user['avatar']; ?>" alt="" /><?php } else echo '&nbsp;'; ?></td>
+   </tr>
+  </table>
+ </td>
+</tr>
+<tr class="td1">
+ <td>Подпись</td>
+ <td><textarea class="input w100" name="sig" cols="100" rows="3"><?php echo $user["sig"]; ?></textarea></td>
+</tr>
+<tr class="td2"><td colspan="2" align="center"><input type="submit" value="Изменить" /></td></tr>
+</table>
+</form>

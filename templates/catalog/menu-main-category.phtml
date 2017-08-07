@@ -1,0 +1,5 @@
+  <ul class="categori">
+    <?php $num = 1; foreach( $menus as $menu ) { ?>
+      <li><a href="<?php echo $menu['href']; ?>" title="<?php echo htmlspecialchars( $menu['name'] ); ?>"><i class="<?php echo ' icon-c-'.( $num ).' '; ?>"></i><?php echo $menu['name']; ?></a></li>
+    <?php ++$num; } ?>
+  </ul>

@@ -1,0 +1,81 @@
+<?php
+// показывать или скрывать левое меню-фильтр
+$showLeftMenu = false;
+
+// это макет без левого меню
+$cssItem = ' coll-4 ';
+$cssItemsList = '';
+
+// это макет с левым меню
+if  ($showLeftMenu) {
+  $cssItem = ' coll-4-small ';
+  $cssItemsList = 'coll-8 ';
+}
+
+?>
+<?php if ($showLeftMenu) { ?>
+<div class="block coll-4 coll-tablet first">
+  <form class="filter" action="/photographers" data-component="site/ui/catalog/filter">
+    <input type="hidden" name="catalog_id" value="<?php echo ( int ) $_REQUEST['catalog_id']; ?>" />
+    <a class="h1">Подобрать фотосессию</a>
+    <?php foreach( $this->catalogList as $part ) { $isCurrentPart = ( in_array( $part['id'], explode( ',', $itemsParms['catalog_in'] ) ) || $part['id'] == $parms['catalog_id'] ); ?>
+      <a class="h1 js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $part['id']; ?>" href="<?php echo $this->catalogEngine->MakeUrl( array( 'url' => 'photographers', 'catalog_id' => $part['id'] ) ); ?>" title="<?php echo htmlspecialchars( $part['name'] ); ?>"><?php echo $part['name']; ?></a>
+      <?php if( !empty( $part['subparts'] ) ) { ?>
+        <ul>
+          <?php foreach( $part['subparts'] as $subpart ) { $isCurrentPart = ( $subpart['id'] == $this->parms['catalog_id'] ); ?>
+            <li>
+              <a class="js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $subpart['id']; ?>" href="<?php echo $this->catalogEngine->MakeUrl( array( 'url' => 'photographers', 'catalog_id' => $subpart['id'] ) ); ?>" title="<?php echo htmlspecialchars( $subpart['name'] ); ?>"><?php echo $subpart['name']; ?></a>
+            </li>
+          <?php } ?>
+        </ul>
+      <?php } ?>
+    <?php } ?>
+    <h1>Цена</h1>
+    <div class="amount js-price" data-price-min="<?php echo number_format( $priceLimit['min'], 0, '.', '' ); ?>" data-price-max="<?php echo number_format( $priceLimit['max'], 0, '.', '' ); ?>" data-component="site/ui/catalog/slider-price">
+      <div class="block amount-box">
+        <span>от</span>
+        <input type="text" name="price_min" value="<?php echo number_format( max( $itemsParms['price_min'], $priceLimit['min'] ), 0, '', ' ' ); ?>">
+      </div>
+      <div class="block amount-box">
+        <span>до</span> 
+        <input type="text" name="price_max" value="<?php echo number_format( $itemsParms['price_max'] ? $itemsParms['price_max'] : $priceLimit['max'], 0, '', ' ' ); ?>">
+      </div>
+      <div class="clearfix"></div>
+      <div class="js-price-slider slider-price"></div>
+      <div class="block range-min"><?php echo number_format( $priceLimit['min'], 0, '.', ' ' ); ?></div>
+      <div class="block range-max"><?php echo number_format( $priceLimit['max'], 0, '.', ' ' ); ?></div>
+    </div>
+  </form>
+</div>
+<?php } ?>
+
+<div class="block <?php echo $cssItemsList ?> coll-tablet">
+  <?php if( $numPages > 1 ) { ?><?php echo Utils::GetPageNavigator( $page, $numPages, $this->catalogEngine->MakeUrl( array( 'url' => 'photographers', 'page' => '%' ) + $_REQUEST ) ); ?><?php } ?>
+  <h1 class="work-h1">Фотографы</h1>
+  <p style="margin-top: 15px;"><?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?></p>
+  
+  <div class="block catalog-section">
+    <?php
+      $num = 0;
+      foreach( $itemsList as $item ) {
+        $href = '/photographers/'.( $item['id'] );
+    ?>
+      <div class="block <?php echo $cssItem ?> work-fotograf <?php if( $num % 3 == 0 ) { echo ' first '; } ?> ">
+        <div class="img-box">
+          <a href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>">
+            <img src="<?php echo '/thumbs/360x240/'.$item['picture']; ?>" width="300" height="174" alt="">
+          </a>
+        </div>
+        <div class="work-fotograf-content">
+          <a href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>"><?php echo $item['name']; ?></a>
+          <p><?php echo $item['announce']; ?></p>
+          <p class="count"><?php echo ( int ) $item['_photos_count']; ?></p>
+        </div>
+      </div>
+    <?php ++$num; } ?>
+  </div>
+  
+  <div class="block">
+    <?php if( $numPages > 1 ) { ?><?php echo Utils::GetPageNavigator( $page, $numPages, $this->catalogEngine->MakeUrl( array( 'url' => 'photographers', 'page' => '%' ) + $_REQUEST ) ); ?><?php } ?>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<?php if ($ban['id'] > 0) { ?>
+<div id="ban<?php echo $ban['id']; ?>"<?php echo ($ind > 0 ? ' class="dn"' : ''); ?>>
+<?php if (!$ban['is_flash']) { ?>
+ <?php if ($ban['text']) echo $ban['text']; else { ?>
+ <?php if ($ban['url']) { ?><a href="/click/<?php echo $ban['id']; ?>" title="<?php echo htmlspecialchars($ban['name']); ?>"<?php echo ($ban['is_blank'] ? ' target="_blank"' : ''); ?>><?php } ?><img src="<?php echo preg_replace('/\s/', '%20', $ban['file']); ?>"<?php if ($ban['width']) { ?> width="<?php echo $ban['width']; ?>"<?php } ?><?php if ($ban['height']) { ?> height="<?php echo $ban['height']; ?>"<?php } ?> alt="<?php echo htmlspecialchars($ban['name']); ?>" /><?php if ($ban['url']) { ?></a><?php } ?>
+ <?php } ?>
+<?php } else if ($ban['file_door_flash']) { ?>
+ <noscript><?php if ($ban['url']) { ?><a href="/click/<?php echo $ban['id']; ?>" title="<?php echo htmlspecialchars($ban['name']); ?>"<?php echo ($ban['is_blank'] ? ' target="_blank"' : ''); ?>><?php } ?><img src="<?php echo preg_replace('/\s/', '%20', $ban['file_door_flash']); ?>"<?php if ($ban['width']) { ?> width="<?php echo $ban['width']; ?>"<?php } ?><?php if ($ban['height']) { ?> height="<?php echo $ban['height']; ?>"<?php } ?> alt="<?php echo htmlspecialchars($ban['name']); ?>" /><?php if ($ban['url']) { ?></a><?php } ?></noscript>
+<?php } ?>
+</div><?php } ?>

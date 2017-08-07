@@ -1,0 +1,48 @@
+<div class="popup-dialog-wrapper">
+  <h1>Регистрация</h1>
+
+  <?php if (trim($alert)) { ?><p class="alert"><?php echo $alert; ?></p><?php } ?>
+  <?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($text['content'], '<table><img><ul><li><object><div>')))) echo $text['content']; ?>
+  <?php $form->header(); ?>
+
+  <label>
+    <div class="form-name">Ф.И.О.:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('fio', ' data-rule-required="true" data-msg-required="Укажите Ваше имя!"'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name small">Пароль:<span class="required">*</span></div>
+    <div class="form-value">
+      <?php $form->field('password', ' data-rule-password="true" data-msg-password="Укажите пароль! Пароль может состоять из цифр, букв латинского алфавита и символа «_» !" data-msg-required="Укажите пароль!" data-rule-required="true"'); ?>
+      <input type="hidden" name="re_password" value="" />
+    </div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name small">E-mail:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('email', ' data-rule-email="true" data-msg-email="Укажите правильный email!" data-msg-required="Укажите email!" data-rule-required="true"'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name small">Телефон:</div>
+    <div class="form-value"><?php $form->field('phones'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name small">Ваш день<br />рождения:</div>
+    <div class="form-value"><?php $form->field('birthday'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value small"><?php $form->field('subscribe'); ?>&nbsp;<span class="absolute">Подписка на рассылку информации об акциях</span></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Отправить</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+  <?php $form->footer(); ?>
+
+</div>

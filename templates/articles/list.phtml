@@ -1,0 +1,11 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($articles) > 0) { ?>
+<?php foreach ($articles as $id => $row) { ?>
+<div>
+ <div><a href="<?php echo $this->menuPath; ?>articles/<?php echo $id; ?>-<?php echo $row['href']; ?>" title="<?php echo htmlspecialchars(trim($row['name'])); ?>"><strong><?php echo trim($row['name']); ?></strong></a></div>
+ <?php $announce = trim(preg_replace(array('/<p>/', '/<\/p>/', '/<br\s?\/>$/'), array('', '<br />', ''), $row['announce'])); echo $announce; ?><br />
+ <a href="<?php echo $this->menuPath; ?>articles/<?php echo $id; ?>-<?php echo $row['href']; ?>" title="<?php echo htmlspecialchars(trim($row['name'])); ?>">подробнее</a>
+</div>
+<?php } ?>
+<?php if ($numPages > 1) { ?><div><?php echo Site::GetPageNavigator($page, $numPages, $this->menuPath.'articles/page/%'); ?></div><?php } ?>
+<?php } else echo "<p>Статей нет.</p>"; ?>

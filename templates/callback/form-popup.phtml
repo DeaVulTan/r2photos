@@ -1,0 +1,26 @@
+<div class="popup-dialog-wrapper">
+  <h1>Обратный звонок</h1>
+  <?php $form->header(); ?>
+  <?php echo $alert ? '<span class="alert">'.$alert.'</span>' : ''; ?>
+  <label>
+    <div class="form-name">Ф.И.О.:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('fio', 'data-rule-regexp="[a-zA-Zа-яА-Я]+" data-msg-regexp="Укажите Ваше имя!"'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Телефон:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('phone', ' data-rule-regexp="[0-9]{3,}" data-msg-regexp="Укажите Ваш контактный телефон!" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Текст:</div>
+    <div class="form-value"><?php $form->field('text'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Отправить</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+  <?php $form->footer(); ?>
+</div>

@@ -1,0 +1,63 @@
+
+<table class="calendar">
+  <tr>
+    <th colspan="7">
+      <span>
+        <a href="<?php echo $this->menuPath.'news/archiv/'.( date( 'Ym', $curDate ) ); ?>" title="<?php echo htmlspecialchars( Utils::GetCalendarTitle( $curDate ) ); ?>"><?php echo Utils::GetCalendarTitle( $curDate ); ?></a>
+        <span class="n-prev" data-new-date="<?php echo date( 'Ym', strtotime( '-1 month', $curDate ) ); ?>"></span>
+        <span class="n-next" data-new-date="<?php echo date( 'Ym', strtotime( '+1 month', $curDate ) ); ?>"></span>
+      </span>
+    </th>
+  </tr>
+  <tr>
+    <td><span>Пн</span></td>
+    <td><span>Вт</span></td>
+    <td><span>Ср</span></td>
+    <td><span>Чт</span></td>
+    <td><span>Пт</span></td>
+    <td><span>Сб</span></td>
+    <td><span>Вс</span></td>
+  </tr>
+ <?php
+for( $i = 1; $i <= $numW; $i++ ) {
+  if( $i == 1 ) {
+    echo '<tr>';
+    $f = date("w", mktime(0, 0, 0, date("n", $curDate), 1, date("Y", $curDate)));
+    if ($f == 0) $f = 7;
+    $t = date("t", ($curDate - 3600*24));
+    $string = '';
+    for ($j = 1; $j < $f; $j++) {
+      $string = '<td class="none"><span></span></td>'.$string;
+      $t --;
+    }
+    echo $string;
+    for ($j = 1; $j <= (7 - $f + 1); $j++) {
+      $count = $countnews[$j];
+      $day = date("Ym", $curDate).($j < 10 ? '0'.$j : $j);
+      $isCurrentDay = ( $day == $currentDay );
+      $isSelectedDay = ( $day == $selectedDay );
+      $class = ( $isCurrentDay ? ' date-off ' : '' ).( $count ? ' date-on ' : '' );
+      echo '<td class="'.( $class ).'"><span>'.($count > 0 ? '<a href="'.$this->menuPath.'news/archiv/'.Utils::FormatDate(date("Y", $curDate), date("n", $curDate), $j).'">' : '').$j.($count > 0 ? '</a>' : '')."</span></td>";
+    }
+    echo "</tr>";
+  } else {
+    $f = $j;
+    echo '<tr>';
+    $t = 1;
+    for ($j = $f; $j <= ($f + 7 - 1); $j++) {
+      if( $j > $maxD && $j == $f ) {
+        break;
+      }
+      if ($j <= $maxD) $count = $countnews[$j];
+      else $count = 0;
+      $day = date("Ym", $curDate).($j < 10 ? '0'.$j : $j);
+      $isCurrentDay = ( $day == $currentDay );
+      $class = ( $date == $day ? ' active ' : ( $isCurrentDay ? ' date-off ' : '' ).( $count ? ' date-on ' : '' ) );
+      echo "<td class='".( $class )."'>".($count > 0 && $j <= $maxD ? '<a href="'.$this->menuPath.'news/archiv/'.Utils::FormatDate(date("Y", $curDate), date("n", $curDate), $j).'">' : '<span>').($j > $maxD ? '' : $j).($count > 0 && $j <= $maxD ? '</a>' : '</span>')."</td>";
+      if ($j > $maxD) $t++;
+    }
+    echo "</tr>";
+  }
+}
+?>
+</table>

@@ -1,0 +1,17 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php if (sizeOf($topics) > 0) { ?>
+<table class="table w100">
+<tr>
+ <th class="w100">Тема</th>
+ <th>Просмотров</th>
+ <th>Ответов</th>
+</tr>
+<?php foreach ($topics as $id => $topic) { ?>
+<tr class="td1" align="center">
+ <td align="left"><a href="topic_<?php echo $id ?>.htm" title="<?php echo htmlspecialchars($topic['title']); ?>"><?php echo $topic['title'] ?></a></td>
+ <td align="center"><?php echo $topic['views'] ?></td>
+ <td align="center"><?php echo Forums::getCount('replies', $id); ?></td>
+</tr>
+<?php } ?>
+</table>
+<?php } else echo "<p>У пользователя нет оставленных тем.</p>"; ?>

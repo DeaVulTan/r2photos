@@ -1,0 +1,20 @@
+<?php $i = 0; if (sizeOf($items) > 0) { ?>
+<table id="app-gallery">
+<?php foreach ($items as $k => $v) {
+   if ($i == 0) echo '<tr>';
+?>
+ <td align="center" width="33%"><a href="<?php echo $v['picture_big']; ?>" target="_blank" rel="gallery"><img src="<?php echo $v['picture_small']; ?>" alt="Увеличить" /></a></td>
+ <?php
+   $i ++;
+   if ($i == 3) {
+      $i = 0;
+      echo '</tr>';
+   }
+}
+if ($i > 0) {
+   for ($j = $i; $j < 3; $j ++) echo '<td>&nbsp;</td>';
+   echo '</tr>';
+}
+?>
+</table>
+<?php } ?>

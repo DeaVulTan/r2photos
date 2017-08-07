@@ -1,0 +1,90 @@
+<h1>Привязка: <?php echo $linksObj->clName($item_type).' => '.$target_typename.' "'.$target_name.'"'; ?></h1>
+<hr /><?php if (defined('LANG')) { ?><?php include(Site::GetTemplate($this->name, 'filter')); ?><hr /><?php } ?>
+<?php $info = $linksObj->clGetInfo(); ?>
+<table>
+<form action="<?php echo Site::CreateUrl($this->name.'-changelistfrom', $this->values); ?>" method="post">
+<tr>
+ <td width="99%"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <td><input type="button" value="Вернуться" class="button" onclick="location.href='<?php echo strtolower($info[$item_type]['table']).'-list.htm'; ?>';" /></td>
+ <td><input type="submit" value="Внести изменения" name="_change" class="button" onclick="return onChange();" /></td>
+</tr>
+</table>
+<br />
+<table cellpadding="4" cellspacing="1" border="0" align="center" class="table">
+<tr>
+ <th>id</th>
+ <th><input type="checkbox" id="cbAll" /><br /><label for="cbAll">Все</label></th>
+ <th width="100%">
+  <div style="position: relative;">
+    Наименование
+    <div style="position: absolute; left: 0; top: 0;">
+      <input type="text" class="field js-filter" style="width: 200px;" placeholder="фильтр..." />
+    </div>
+  </div>
+ </th>
+</tr>
+<?php
+   if (count($items) > 0) {
+    $colors = array(
+      0 => '#EBEBEB',
+      1 => '#DBDBDB',
+      2 => '#CBCBCB',
+      3 => '#BBBBBB',
+      4 => '#ABABAB',
+      5 => '#9B9B9B',
+      6 => '#8B8B8B',
+    );
+    foreach ($items as $id => $item) { $color = $colors[0 + $item['level']];
+?>
+<input type="hidden" name="itemIds[<?php echo $item['id']; ?>]" value="1" />
+<?php if(isset($links[$item['id']])) { ?>
+<input type="hidden" name="linkIds[<?php echo $item['id']; ?>]" value="<?php echo $links[$item['id']]['id']; ?>" />
+<?php } ?>
+<tr class="row js-row">
+ <td align="center" style="background: <?php echo $color; ?>;"><?php echo $item['id']; ?></td>
+ <td align="center" style="background: <?php echo $color; ?>;"><?php Action::CheckBox('targetIds['.$item['id'].']', $checked = isset($links[$item['id']]), ' class="cbItem '.( $item['id'] == $target_id && $sameTypes ? ' js-fixed ' : '' ).' " '.( $item['id'] == $target_id && $sameTypes ? ' disabled checked ' : '' ).' '); ?></td>
+ <td class="item_ids" data-text="<?php echo htmlspecialchars( strip_tags( $item[ $info[ $target_type ]['field'] ] ) ); ?>" style="background: <?php echo $color; ?>;"><?php echo ($checked ? '<strong>'.$item[ $info[ $target_type ]['field'] ].'</strong>' : $item[ $info[ $target_type ]['field'] ]); ?></td>
+</tr>
+<?php
+      }
+   } else {
+?>
+<tr class="row"><td colspan="6" align="center">Нет позиций</td></tr>
+<?php
+   }
+?>
+</table>
+<br />
+<table><tr>
+ <td width="99%"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <td><input type="submit" value="Внести изменения" name="_change" class="button" onclick="return onChange();" /></td>
+</tr></form></table>
+
+<script language="javascript">
+var useRowsClicks = true;
+var oldTableColor = '#FFFFFF';
+  var UpdateByFilter = function() {
+    var text = $( '.js-filter' ).val().replace( /^\s+|\s+$/, '' ).toLowerCase();
+    var exp = new RegExp( text );
+    $( '.js-row' ).each(function(){
+      var match = $( this ).find( '.item_ids' ).data( 'text' ).toLowerCase().match( exp );
+      if( match ) {
+        $( this ).show();
+      } else {
+        $( this ).hide();
+      }
+    });
+  };
+
+ (function( callback ){
+  var deferredJquery = function(){
+    if( typeof( $ ) === 'function' ) {
+      return callback();
+    }
+    return setTimeout( deferredJquery, 100 );
+  };
+  deferredJquery();
+ })( function(){
+    $( '.js-filter' ).on( 'change keyup', UpdateByFilter );
+ });
+</script>

@@ -1,0 +1,90 @@
+<?php if( empty( $this->items ) ) { ?>
+  <p>Корзина пуста</p>
+<?php } else { ?>
+  <form name="updateOrder" action="/orders/update" method="post" data-component="site/ui/orders/edit-form">
+    <div class="block">
+      <div class="basket-table">
+        <div class="basket-tr basket-m-hide">
+          <div class="basket-th b_180"><span class="bas-first">Изображение</span></div>
+          <div class="basket-th b_180"><span>Наименование</span></div>
+          <div class="basket-th"><span>Краткое описание</span></div>
+          <div class="basket-th b_150"><span>Цена</span></div>
+          <div class="basket-th b_160"><span>Кол-во</span></div>
+          <div class="basket-th b_100"><span>Код</span></div>
+          <div class="basket-th b_100"><span class="bas-last">Удалить</span></div>
+        </div>
+
+        <?php
+          $summ = 0;
+          $orderInfo = Utils::GetOrderInfo( $this );
+          foreach( $this->items as $item ) {
+            $item += ( array ) Items::GetRow( array( 'active' => 1, 'id' => $item['items_id'] ) );
+        ?>
+          <div class="basket-tr">
+            <div class="basket-td">
+              <div class="b-img"><img src="<?php echo $item['picture']; ?>" alt=""></div>
+            </div>
+            <div class="basket-td">
+              <a title="<?php echo htmlspecialchars( $item['name'] ); ?>"><?php echo $item['name']; ?></a>
+            </div>
+            <div class="basket-td">
+              <?php echo $item['announce']; ?>
+            </div>
+            <div class="basket-td b-summ">
+              <?php echo number_format( $item['price'], 0, '.', '' ).' руб.'; ?>
+            </div>
+            <div class="basket-td b-inp">
+              <input type="text" name="<?php echo 'countOrd_'.( $item['id'] ); ?>" value="<?php echo ( int ) $item['count']; ?>"> шт.
+            </div>
+            <div class="basket-td b-inp">
+              <input type="text" value="<?php echo htmlspecialchars( $item['art'] ); ?>">
+            </div>
+            <div class="basket-td">
+              <a href="#" class="basket-del js-del" data-id="<?php echo $item['id']; ?>"></a>
+            </div>
+          </div>
+        <?php } ?>
+      </div>
+
+      <div class="itogo">
+        <div class="itogo-float">Итого: <span><?php echo number_format( $orderInfo['summ_full'], 0, '.', '' ).' руб.'; ?></span></div>
+        <div class="itogo-float">с учетом скидки: <span class="i-sale"><?php echo number_format( $orderInfo['summ_with_discount'], 0, '.', '' ).' руб.'; ?></span></div>
+      </div>
+      <a href="#" class="btn js-submit">Оформить заказ</a>
+    </div>
+  </form>
+<?php } ?>
+
+
+<?php /* ?>
+<?php if (count($this->items) > 0) { ?>
+<form id="form-updateOrder" name="updateOrder" action="<?php echo $this->menuPath; ?><?php echo $this->name; ?>/update" method="post">
+<table>
+<tr>
+ <th>№</th>
+ <th>Наименование</th>
+ <th>Кол-во</th>
+ <th>Удалить</th>
+</tr>
+<?php
+   $ind = 1;
+   foreach ($this->items as $id => $arr) {
+      $class = ($class == 1 ? 2 : 1);
+?>
+<tr class="td<?php echo $class; ?>">
+ <td align="center"><?php echo $ind ++; ?></td>
+ <td><?php echo $arr['name']; ?></td>
+ <td><input type="text" name="countOrd_<?php echo $id; ?>" value="<?php echo $arr['count']; ?>" class="input" style="width: 50px;" /></td>
+ <td align="center"><a href="<?php echo $this->menuPath; ?>orders/del/<?php echo $id; ?>">удалить</a></td>
+</tr>
+ <?php } ?>
+</table>
+<table style="margin-top: 10px;">
+ <tr>
+  <td align="right" width="99%"><input type="submit" value="Обновить заказ" /></td>
+  <td><input type="button" value="Оформить заказ" onclick="document.location.href='<?php echo $this->menuPath; ?>orders/form';" /></td>
+ </tr>
+</table>
+</form>
+<?php } else { ?><p>Корзина пуста</p><?php } ?>
+<?php */ ?>

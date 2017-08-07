@@ -1,0 +1,31 @@
+<?php include( Site::GetTemplate( $this->name, 'menu' ) ); ?>
+<div class="block coll-8 coll-tablet">
+  <h1 class="work-h1">История заказов</h1>
+
+
+
+  <?php if (sizeOf($orders) > 0) { ?>
+    <div class="app-basket">
+      <div class="app-basket-tr app-basket-tr-hide">
+        <div class="app-basket-th">Номер</div>
+        <div class="app-basket-th">Дата</div>
+        <div class="app-basket-th">Статус</div>
+        <div class="app-basket-th">Сумма</div>
+      </div>
+
+      <?php foreach ($orders as $k => $v) { ?>
+
+        <div class="app-basket-tr">
+          <div class="app-basket-td app-basket-td-left"><?php echo $v['id']; ?></div>
+          <div class="app-basket-td app-basket-td-left"><?php echo date('d.m.Y', $v['idate']); ?></div>
+          <div class="app-basket-td app-basket-td-left"><?php echo Orders::GetStatusStrById($v['status']); ?></div>
+          <div class="app-basket-td app-basket-td-left">
+            <?php echo ($v['summa']-round($v['summa']/100*$v['discount'])+$v['delivery_price']-$v['bonus']); ?> р.
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+  <?php } else { ?>
+    <p>У вас ещё нет покупок</p>
+  <?php } ?>
+</div>

@@ -1,0 +1,11 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php $form->header(); ?>
+<?php $form->field('userid'); ?>
+<table class="table w100">
+<tr class="td1">
+ <td nowrap="nowrap">Текст сообщения: </td>
+ <td class="w100"><?php $form->field('text', ' class="input w100" cols="100" rows="10"'); ?></td>
+</tr>
+<tr class="td1"><td colspan="2" align="center"><input type="submit" class="button" value="Отправить" /></td></tr>
+</table>
+<?php $form->footer(); ?>

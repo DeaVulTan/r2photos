@@ -1,0 +1,5 @@
+<?php
+$text = preg_replace('/UNSUBSCRIBE/', '<a href="'.Site::GetParms('siteRef').'subscribers/unactive/'.md5($parms['email'].':'.$parms['id']).'">отказаться</a>', Utils::GetValue('text_mail_add_subscriber'));
+$text = preg_replace('/SUBSCRIBE/', '<a href="'.Site::GetParms('siteRef').'subscribers/active/'.md5($parms['email'].':'.$parms['id']).'">активировать</a>', $text);
+echo "<p>".nl2br($text)."</p>";
+?>

@@ -1,0 +1,13 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($faqs) > 0) { ?>
+<?php foreach ($faqs as $id => $item) { ?>
+<div>
+ <div><?php echo date("d.m.y", $item['idate']); ?> | <?php echo $item['name']; ?></div>
+ <?php echo $item['question']; ?><br />
+ <a href="<?php echo $this->menuPath; ?>faq/<?php echo $id; ?>-<?php echo $item['href']; ?>" title="Смотреть ответ">Ответ</a>
+</div>
+<?php } ?>
+<?php if ($numPages > 1) { ?><div><?php echo Site::GetPageNavigator($page, $numPages, $this->menuPath.'faq/page/%'); ?></div><?php } ?>
+<?php } else echo "<p>Вопросов нет.</p>"; ?>
+<h2>Задать свой вопрос</h2>
+<?php include(Site::GetTemplate($this->name, 'form')); ?>

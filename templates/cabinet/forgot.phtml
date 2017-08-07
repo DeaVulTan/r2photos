@@ -1,0 +1,24 @@
+<?php $isAjax = Site::GetParms( 'isAjax' ); ?>
+<div class="<?php if( $isAjax ) { echo ' popup-dialog-wrapper '; } ?>">
+  <?php if( $isAjax ) { ?>
+    <h1>Вспомнить пароль</h1>
+  <?php } ?>
+  <?php $form->header(); ?>
+
+  <?php if( !empty( $alert ) ) { ?>
+    <p class="alert"><?php echo $alert; ?></p>
+  <?php } ?>
+
+  <label>
+    <div class="form-name wide">Логин (e-mail):<span class="required">*</span></div>
+    <div class="form-value wide"><?php $form->field('login_forgot', ' data-rule-email="true" data-msg-email="Укажите правильный email!" data-msg-required="Укажите email!" data-rule-required="true" tabindex="1" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name wide">&nbsp;</div>
+    <div class="form-value wide"><button type="submit" class="btn wide" type="submit"><span>Вспомнить</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <?php $form->footer(); ?>
+</div>

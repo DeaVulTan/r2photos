@@ -1,0 +1,31 @@
+<p>Ваши данные.</p>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial,Helvetica,clean,sans-serif; font-size: 14px; color: #000000; background-color: #ffffff;">
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Ф.И.О.</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['fio']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" width="1%">E-mail (логин)</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['email']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Пароль</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['password']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Телефон</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['phones']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">День рождения</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['birthday']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Подписка</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo ( $parms['subscribe'] ? 'Да' : 'Нет' ); ?></td>
+ </tr>
+</table>
+<p>
+ Для активации Вашего аккаунта перейдите по ссылке "<a href="<?php echo Site::GetBaseRef().$parms['menu_path']; ?>registration/active/<?php echo $parms['idmd5']; ?>" title="Активировать аккаунт">активировать</a>".<br />
+ Если Вы не желаете активировать аккаунт перейдите по ссылке "<a href="<?php echo Site::GetBaseRef().$parms['menu_path']; ?>registration/unactive/<?php echo $parms['idmd5']; ?>" title="Отказаться">отказаться</a>" или просто ничего не делайте.
+</p>

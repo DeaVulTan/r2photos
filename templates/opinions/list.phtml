@@ -1,0 +1,12 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($opinions) > 0) { ?>
+<?php foreach ($opinions as $id => $item) { ?>
+<div>
+ <div><?php echo date("d.m.y", $item['idate']); ?> | <a href="<?php echo $this->menuPath; ?>opinions/<?php echo $id; ?>-<?php echo $item['href']; ?>"><?php echo $item['name']; ?></a></div>
+ <?php echo $item['text']; ?>
+</div>
+<?php } ?>
+<?php if ($numPages > 1) { ?><div><?php echo Site::GetPageNavigator($page, $numPages, $this->menuPath.'opinions/page/%'); ?></div><?php } ?>
+<?php } else echo "<p>Отзывов нет.</p>"; ?>
+<h2>Оставь свой отзыв</h2>
+<?php include(Site::GetTemplate($this->name, 'form')); ?>

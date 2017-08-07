@@ -1,0 +1,46 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php if ($moderate) { ?>
+<form name="postForm" method="post" action="topic_change.htm">
+<input type="hidden" value="<?php echo $this->parms["id"]; ?>" name="forum_id" />
+<?php } ?>
+<table class="table w100">
+ <tr class="td2" align="center">
+  <td colspan="3"><strong><a href="forum.htm" title="Форум">Форум</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="cat_<?php echo $forum['cat_id']; ?>.htm" title="<?php echo htmlspecialchars($cat['title']); ?>"><?php echo $cat['title']; ?></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo $forum['name']; ?></strong></td>
+  <td colspan="2" nowrap="nowrap">
+   <?php if ($moderator) { ?><a href="forum<?php echo ($moderate ? '' : '_moderate'); ?>_<?php echo $this->parms['id']; ?>.htm" title="<?php echo ($moderate ? 'Модерирование выход' : 'Модерировать'); ?>"><?php echo ($moderate ? 'Модер.[Выход]' : '[Модерировать]'); ?></a><br /><?php } ?>
+   <noindex><a href="topic_new_<?php echo $this->parms["id"]; ?>.htm" title="Новая тема">Новая тема</a></noindex>
+  </td>
+ </tr>
+ <tr>
+  <th class="w100">Тема</th>
+  <th>Автор</th>
+  <th>Просмотров</th>
+  <th>Ответов</th>
+  <?php if ($moderate) { ?><th>Удалить</th> <?php } ?>
+ </tr>
+ <?php if (sizeOf($topics) > 0) { ?>
+ <?php if ($numPages > 1) { ?><tr class="td1" align="right"><td colspan="5"><?php echo Site::GetPageNavigator($page, $numPages, "forum".($moderate ? '_moderate' : '')."_".$this->parms["id"]."_%.htm"); ?></td></tr><?php } ?>
+ <?php foreach ($topics as $id => $topic) { ?>
+ <tr class="td1">
+  <td>
+  <?php if (!$moderate) { ?><a href="topic_<?php echo $id; ?>.htm"><?php echo $topic['title']; ?></a><br /><?php echo Topics::Cut($topic['first_post']['text'], 100); ?>
+  <?php } else { ?><input type="text" name="topic[<?php echo $id; ?>]" value="<?php echo $topic['title']; ?>" class="input w100" /><?php } ?>
+  </td>
+  <td align="center"><a href="users_<?php echo $topic['poster']; ?>.htm"><?php echo $topic['user']['nikname']; ?></a></td>
+  <td align="center"><?php echo $topic['views'] ?></td>
+  <td align="center"><?php echo Forums::getCount('replies', $id); ?></td>
+  <?php if ($moderate) { ?><td align="center"><input type="checkbox" name="topic_id[<?php echo $id; ?>]" value="<?php echo $id; ?>" /></td><?php } ?>
+ </tr>
+ <?php } ?>
+ <?php if ($numPages > 1) { ?><tr class="td1" align="right"><td colspan="5"><?php echo Site::GetPageNavigator($page, $numPages, "forum".($moderate ? '_moderate' : '')."_".$this->parms["id"]."_%.htm"); ?></td></tr><?php } ?>
+ <?php if ($moderate) { ?><tr class="td1"><td colspan="5"><input type="submit" value="Изменить/Удалить" name="change" /></td></tr><?php } ?>
+ <?php } else { ?><tr class="td1"><td colspan="4"><a href="topic_new_<?php echo $this->parms["id"]; ?>.htm">Начать новую тему</a></td></tr><?php } ?>
+ <tr class="td2" align="center">
+  <td colspan="3"><strong><a href="forum.htm" title="Форум">Форум</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="cat_<?php echo $forum['cat_id']; ?>.htm" title="<?php echo htmlspecialchars($cat['title']); ?>"><?php echo $cat['title']; ?></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo $forum['name']; ?></strong></td>
+  <td colspan="2" nowrap="nowrap">
+   <?php if ($moderator) { ?><a href="forum<?php echo ($moderate ? '' : '_moderate'); ?>_<?php echo $this->parms['id']; ?>.htm" title="<?php echo ($moderate ? 'Модерирование выход' : 'Модерировать'); ?>"><?php echo ($moderate ? 'Модер.[Выход]' : '[Модерировать]'); ?></a><br /><?php } ?>
+   <noindex><a href="topic_new_<?php echo $this->parms["id"]; ?>.htm" title="Новая тема">Новая тема</a></noindex>
+  </td>
+ </tr>
+ </table>
+<?php if ($moderate) { ?></form><?php } ?>

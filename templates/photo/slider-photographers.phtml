@@ -1,0 +1,26 @@
+<h1 class="align">Фотографы</h1>
+<p class="align annotation"> У каждого из фотографов вы можете заказать фотосессию, нажав на кнопку «оформить заказ»</p>
+<div class="slider-box">
+  <div class="f-slider-prev"></div>
+  <div class="f-slider-next"></div>
+
+  <div class="fotograf-slider" data-component="site/ui/front/slider" data-attrs="<?php echo htmlspecialchars( json_encode( array( 'prevButton' => '.f-slider-prev', 'nextButton' => '.f-slider-next', 'autoSlide' => true, 'autoSlideTimer' => 3000 ) ) ); ?>">
+    <div class="slider">
+      <?php foreach( $itemsList as $item ) { $href = '/photographers/'.( $item['id'] ); ?>
+        <div class="slide">
+          <a class="fotograf-img" href="<?php echo $href; ?>">
+            <img src="<?php echo '/thumbs/301x201/'.( $item['picture'] );//$item['picture']; ?>" width="300" height="164" alt="">
+          </a>
+          <div class="fotograf-text">
+            <a href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>"><?php echo htmlspecialchars( $item['name'] ); ?></a>
+            <p><?php echo $item['announce']; ?></p>
+            <div class="count"><?php echo ( int ) $item['_photos_count']; ?></div>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+</div>
+<p style="text-align:center;">
+  <a href="/photographers" class="more">Все фотографы</a>
+</p>

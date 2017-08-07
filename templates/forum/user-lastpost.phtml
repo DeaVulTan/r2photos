@@ -1,0 +1,31 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php if ($moderator) { ?>
+<form name="postForm" method="post" action="topic_change.htm">
+<input type="hidden" value="<?php echo $this->parms["forum"] ;?>" name="forum_id">
+<?php } ?>
+<table class="table w100">
+ <tr>
+  <th class="w100"><b>Тема</b></th>
+  <th><b>Просмотров</b></th>
+  <th><b>Ответов</b></th>
+ </tr>
+ <?php if (!$topics) { ?>
+ <tr class="td1"><td colspan="3">Новых тем c вашего последнего посещения не создано</td></tr>
+ <?php } else { ?>
+ <?php foreach ($topics as $topic) { ?>
+ <tr class="td1">
+  <td><?php echo "<a href=\"topic_"; if ($moderator) echo "moderate_"; echo $topic['id'].".htm\">".$topic['title']."</a>"; ?></td>
+  <td align="center"><?php echo $topic['views']."</td><td align=center>".Forums::getCount('replies', $topic['id']); ?></td>
+  <?php if ($moderator) { ?><td align="center"><input type="checkbox" name="topic_id[<?php echo $topic[id] ?>]" value="<?php echo "$topic[id]"; ?>" /></td><?php } ?>
+ </tr>
+  <?php } } ?>
+ <?php if ($moderator) { ?>
+</table>
+<table>
+ <tr valign="top">
+  <td width="99%" align="right"><b>С отмеченными: </b></td>
+  <td align="left"><input type="submit" value="Удалить" /></td>
+ </tr>
+<?php } ?>
+</table>
+</form>

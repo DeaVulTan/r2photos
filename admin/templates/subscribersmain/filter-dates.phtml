@@ -1,0 +1,12 @@
+<form name="filterForm" action="<?php echo $this->name; ?>-filterdates.htm" method="post">
+<input type="hidden" name="itemIdEdit" value="<?php echo $this->itemId; ?>" />
+<table>
+<tr>
+ <td class="pr5">Дата с</td>
+ <td class="pr20"><?php Action::Calendar('date_from', (Site::GetSession('date_from') ? Site::GetSession('date_from') : date("d.m.Y", (time() - 3600*24*7))), ' class="field" size="10"'); ?></td>
+ <td class="pr5">Дата по</td>
+ <td class="pr20"><?php Action::Calendar('date_to', (Site::GetSession('date_to') ? Site::GetSession('date_to') : date("d.m.Y")), ' class="field" size="10"'); ?></td>
+ <td><input type="image" src="image/btn-search.gif" title="Искать" alt="Искать" /></td>
+</tr>
+</table>
+</form>

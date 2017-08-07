@@ -1,0 +1,18 @@
+<?php
+  $href = $this->menuPath.'item/'.$item['id'].'-'.$item['href'];
+  if( $item['picture'] ) {
+  $thumbnail = ThumbnailMaker::cropAndResize($item['picture'], 360, 236);
+	}
+?>
+<div class="block coll-4-small catalog <?php if( $num % 2 == 0 ) { echo ' first '; } ?> ">
+  <div class="img-box">
+    <img src="<?php echo $thumbnail; ?>" data-picture="<?php echo $item['picture']; ?>" width="360" height="236" alt="<?php echo htmlspecialchars( $item['name'] ); ?>">
+  </div>
+  <h1><?php echo $item['name']; ?></h1>
+  <p><?php echo $item['announce']; ?></p>
+  <div class="catalog-summ">
+    <strong><?php echo number_format( $item['price'], 0, '.', '' ).' руб.'; ?></strong>
+    <a data-id="<?php echo $item['id']; ?>" data-count="1" data-component="site/ui/orders/do">Купить</a>
+    <a href="<?=$href;?>">Подробнее</a>
+  </div>
+</div>

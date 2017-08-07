@@ -1,0 +1,12 @@
+<?php
+$text = $item['text'];
+$text = preg_replace('/\{(END)?IF\}/', '', $text);
+$text = preg_replace('/src=\"http:\/\/([^\/]*)?\//', 'src="', $text);
+$text = preg_replace('/src=\"\//', 'src="', $text);
+preg_match_all('/src=\"([^\"]+)\"/', $text, $m);
+if (sizeOf($m[1]) > 0) foreach ($m[1] as $k => $v) {
+   if (mb_eregi("\/", $v)) $text = preg_replace('/src=\"'.preg_replace('/([\/\.\(\)\#\"\'\[\]\*\^\&\$\!\+\|\?])/', '\\\\\1', $v).'\"/', 'src="../'.$v.'"', $text);
+   else $text = preg_replace('/src=\"'.preg_replace('/([\/\.\(\)\#\"\'\[\]\*\^\&\$\!\+\|\?])/', '\\\\\1', $v).'\"/', 'src="../data/image/'.$v.'"', $text);
+}
+echo $text;
+?>

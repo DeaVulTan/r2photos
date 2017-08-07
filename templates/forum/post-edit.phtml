@@ -1,0 +1,14 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<form name="postForm" action="post_changeself.htm" method="post">
+<input type="hidden" value="<?php echo $this->parms['id']; ?>" name="post_id" />
+<table class="table w100">
+ <tr class="td2" align="center">
+  <td colspan="2"><strong><a href="forum.htm" title="Форум">Форум</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="cat_<?php echo $forum['cat_id']; ?>.htm" title="<?php echo htmlspecialchars($cat['title']); ?>"><?php echo $cat['title']; ?></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="forum_<?php echo $forum['id']; ?>.htm" title="<?php echo htmlspecialchars($forum['name']); ?>"><?php echo $forum['name']; ?></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo $topic['title']; ?></strong></td>
+ </tr>
+ <tr>
+  <td class="td2" nowrap="nowrap">Текст сообщения: </td>
+  <td class="w100 td1"><textarea name="text" class="input w100" cols="100" rows="10"><?php echo $posttext['text']; ?></textarea></td>
+ </tr>
+ <tr class="td1"><td colspan="2" align="center"><input type="submit" class="button" value="Изменить" /></td></tr>
+</table>
+</form>

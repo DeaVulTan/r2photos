@@ -1,0 +1,36 @@
+<div class="popup-dialog-wrapper activation">
+  <h1 class="btn-top-2">Активация on-line</h1>
+  <?php $form->header(); ?>
+  <?php echo $alert ? '<p class="alert">'.$alert.'</p>' : ''; ?>
+  <input type="hidden" name="step" value="2" />
+  <input type="hidden" name="cardnum" value="<?php echo htmlspecialchars( $_REQUEST['cardnum'] ); ?>" />
+  <input type="hidden" name="phone" value="<?php echo htmlspecialchars( $_REQUEST['phone'] ); ?>" />
+  <label>
+    <div class="form-name">Желаемая дата посещения<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('idate_visit', ' class="js-date" style="width: 150px;" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Фимилия, имя, отчество<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('fio'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Дата рождения<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('idate_birthday', ' class="js-date" data-attrs="'.( htmlspecialchars( json_encode( array( 'no_min_date' => true, 'no_time' => true, 'custom' => array( 'changeYear' => true, 'yearRange' => date( 'Y', strtotime( '-100 years' ) ).':'.date( 'Y' ) ) ) ) ) ).'" style="width: 150px;" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">E-mail<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('email'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Активировать</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+  <p><?php echo str_replace( '*', '<b class="required">*</b>', nl2br( Utils::GetValue( 'text_activation_card_number_step_2' ) ) ); ?></p>
+  <div class="clearfix"></div>
+  <?php $form->footer(); ?>
+</div>

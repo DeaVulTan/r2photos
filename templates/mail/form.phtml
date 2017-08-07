@@ -1,0 +1,41 @@
+<h1 class="align">Прямая связь с руководством</h1>
+<?php $form->header(); ?>
+  <?php if( !empty( $alert ) ) { ?>
+    <div class="alert"><?php echo $alert; ?></div>
+  <?php } ?>
+
+  <input type="text" placeholder="Название услуги" name="service" value="<?php echo htmlspecialchars( $_REQUEST['service'] ); ?>">
+  <textarea placeholder="Оставить отзыв" name="text"><?php echo htmlspecialchars( $_REQUEST['text'] ); ?></textarea>
+  <input type="text" placeholder="Телефон *" name="phone" value="<?php echo htmlspecialchars( $_REQUEST['phone'] ); ?>">
+  <input type="text" placeholder="E-mail *" name="email" value="<?php echo htmlspecialchars( $_REQUEST['email'] ); ?>">
+  <div class="align"><input type="submit" class="btn" name="_submit" value="Отправить"></div>
+<?php $form->footer(); ?>
+<p><span class="star">*</span> Если Вы хотите, чтобы мы ответили на ваш вопрос или связались с Вами - оставьте, пожалуйста, свои контактные данные.</p>
+
+<?php /* ?>
+<?php $form->header(); ?>
+<table width="80%">
+ <tr>
+  <td><span class="red">*</span> Ваше имя: </td>
+  <td><?php $form->field('fio', ' data-rule-regexp="^[a-zA-Zа-яА-Я0-9-].*$" data-msg-regexp="Укажите Ваше имя!"'); ?></td>
+ </tr>
+ <tr>
+  <td><span class="red">*</span> E-mail: </td>
+  <td><?php $form->field('email', ' data-rule-email="true" data-msg-email="Укажите правильный email!" data-msg-required="Укажите email!" data-rule-required="true"'); ?></td>
+ </tr>
+ <tr>
+  <td>Телефон: </td>
+  <td><?php $form->field('phone'); ?></td>
+ </tr>
+ <tr>
+  <td nowrap="nowrap"><span class="red">*</span> Сообщение: </td>
+  <td><?php $form->field('text', ' data-rule-regexp="^[a-zA-Zа-яА-Я0-9-](.|\n)*$" data-msg-regexp="Укажите сообщение!" rows="10" cols="100"'); ?></td>
+ </tr>
+ <tr>
+  <td><span class="red">*</span> Код: </td>
+  <td><?php $form->field('code', ' data-rule-regexp="^[0-9]+$" data-msg-regexp="Укажите код!" style="width: 50px;"'); ?></td>
+ </tr>
+ <tr><td>&nbsp;</td><td align="center"><input type="submit" value="Отправить" /></td></tr>
+</table>
+<?php $form->footer(); ?>
+<?php */ ?>

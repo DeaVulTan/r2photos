@@ -1,0 +1,80 @@
+<table class="w100 table">
+<tr>
+ <?php foreach ($this->table->columns as $k => $v) { ?>
+ <th>
+  <?php
+  if (!isset($v['sort'])) $v['sort'] = '';
+  if ($v['sort']) echo '<table align="center"><tr><th>';
+  if (isset($this->table->fields[$k]['name']) && $this->table->fields[$k]['name'] == 'CheckBox') echo '<a href="#" onclick="fnCheckBox(document.'.$this->name.'Form, \''.$k.'\'); return false;" title="Выбрать/отменить все">';
+  echo $v['name'];
+  if (isset($this->table->fields[$k]['name']) && $this->table->fields[$k]['name'] == 'CheckBox') echo '</a>';
+  if ($v['sort']) echo '</th>
+                        <th><a href="'.Site::CreateUrl($this->name.'-sort', array(preg_replace('/_/', '777', $k), 'asc')).'" title="Сортировать по возрастанию"><img src="image/str-up'.(Site::GetSession($this->name."-sort") == preg_replace('/_/', '777', $k) && Site::GetSession($this->name."-order") == 'asc' ? '-a' : '').'.gif" width="8" height="8" alt="Сортировать по возрастанию" /></a></th>
+                        <th><a href="'.Site::CreateUrl($this->name.'-sort', array(preg_replace('/_/', '777', $k), 'desc')).'" title="Сортировать по убыванию"><img src="image/str-down'.(Site::GetSession($this->name."-sort") == preg_replace('/_/', '777', $k) && Site::GetSession($this->name."-order") == 'desc' ? '-a' : '').'.gif" width="8" height="8" alt="Сортировать по убыванию" /></a></th>
+                       </tr></table>';
+  ?>
+ </th>
+ <?php } ?>
+ <th><a href="#" onclick="fnCheckBox(document.<?php echo $this->name; ?>Form, 'deletedItem'); return false;" title="Выбрать/отменить все">Удалить</a></th>
+ <th>Изменить</th>
+ <th>Клон</th>
+</tr>
+<?php if ($numOfItems > 0) {
+   $ind = 1;
+   $class = 0;
+   $keys = array_keys($items);
+   foreach ($items as $id => $item) {
+      $key = $ind - 1;
+      $prev = $key - 1;
+      $next = $key + 1;
+      $class = ($class == 1 ? 2 : 1);
+?>
+<tr class="td<?php echo $class; ?>" align="center">
+ <?php foreach ($this->table->columns as $k => $v) {
+   if (!isset($v['style'])) $v['style'] = '';
+   if (!isset($v['order'])) $v['order'] = '';
+   if (!isset($v['function'])) $v['function'] = '';
+   if (!isset($v['addstyle'])) $v['addstyle'] = '';
+   if (!isset($v['autoUpdate'])) $v['autoUpdate'] = '';
+   echo '<td'.($v['style'] ? ' '.$v['style'] : '').'>';
+   if ($v['order']) echo '<table align="center" class="order"><tr><td>';
+   if ($v['function']) {
+      $name = $v['function'];
+      $this->$name($k, $item);
+   }
+   else {
+      if ($v['autoUpdate']) {
+         if ($this->table->fields[$k]['name'] == "Select") {
+            $item['itemsSelect'] = $this->table->fields[$k]['parms']['items'];
+            if ($this->table->fields[$k]['parms']['field']) $item['parmsSelect'] = array('field' => $this->table->fields[$k]['parms']['field']);
+         }
+         $this->echoAutoUpdate($k, $this->table->fields[$k]['name'], $item, $v['addstyle']);
+      }
+      else {
+         if (preg_match('/^([^\.]+)\.htm(l)?$/', $item[$k])) echo '<a href="'.Site::GetParms('siteRef').$item[$k].'" target="_blank">'.$item[$k].'</a>';
+         else if (preg_match('/^http\:\/\/([0-9a-zA-Zа-яА-ЯёЁ\-\.\/]+)$/', $item[$k])) echo '<a href="'.$item[$k].'" target="_blank">'.$item[$k].'</a>';
+         else echo $item[$k];
+      }
+   }
+   if ($v['order']) {
+      echo '</td>';
+      echo '<td>'.($ind > 1 ? '<a href="#" onclick="return doOrder(\'up\', \''.$this->name.'\', \''.$k.'\', '.$item['id'].', '.$keys[$prev].', '.$page.');" title="Вверх">' : '').'<img src="image/'.($ind > 1 ? 'str-up-gray.gif' : '0.gif').'" width="8" height="8" alt="Вверх" />'.($ind > 1 ? '</a>' :'').'</td>';
+      echo '<td>'.($ind < $numOfItems ? '<a href="#" onclick="return doOrder(\'down\', \''.$this->name.'\', \''.$k.'\', '.$item['id'].', '.$keys[$next].', '.$page.');" title="Вниз">' : '').'<img src="image/'.($ind < $numOfItems ? 'str-down-gray.gif' : '0.gif').'" width="8" height="8" alt="Вниз" />'.($ind < $numOfItems ? '</a>' : '').'</td>';
+      echo '</tr></table>';
+   }
+   echo '</td>';
+ }
+ ?>
+ <td align="center"><?php Action::CheckBox('deletedItem['.$item['id'].']'); ?></td>
+ <td align="center"><div class="pngFix"><a href="<?php echo Site::CreateUrl($this->name.'-edit', array($item['id'], $this->values)); ?>"><img src="image/btn-edit2.png" width="15" height="15" alt="Изменить" /></a></div></td>
+ <td align="center"><div class="pngFix"><input type="hidden" name="itemIds[<?php echo $item['id']; ?>]" value="1" /><a href="<?php echo Site::CreateUrl($this->name.'-clon', array($item['id'], $this->values)); ?>"><img src="image/btn-add2.png" width="15" height="15" alt="Клонировать" /></a></div></td>
+</tr>
+<?php
+      $ind ++; }
+   } else {
+?>
+<tr class="td<?php echo $class; ?>"><td colspan="100" align="center">Нет записей</td></tr>
+<?php
+   }
+?>
+</table>

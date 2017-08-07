@@ -1,0 +1,13 @@
+<div class="block">
+    <div class="h1 align">Купить подарочный сертификат</div>
+    </div>
+<div class="certificates-list">
+
+    <?php foreach( $itemsList as $item ) { $href = '/certificates/'.( $item['id'] ); ?>
+        <a class="<?php if( $this->parms['id'] == $item['id'] ) { echo ' active '; } ?>" href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>">
+            <i><?php echo $item['name']; ?></i>
+            <img src="<?php echo $item['picture']; ?>" />
+			<i>От <?php echo $item['price_min']; ?> руб</i>
+        </a>
+    <?php } ?>
+</div>

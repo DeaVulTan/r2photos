@@ -1,0 +1,110 @@
+<?php
+  $paymentList = Orders::GetPaymentList();
+  $userInfo = Site::GetParms( 'userInfo' );
+?>
+<div class="popup-dialog-wrapper">
+  <h1>Оформить заявку</h1>
+  <form name="addOrder" action="<?php echo $this->menuPath; ?>orders/close" method="post" data-validate-style="alert">
+
+  <div class="alert"></div>
+
+  <label>
+    <div class="form-name small">Ф.И.О.:<span class="required">*</span></div>
+    <div class="form-value">
+      <input type="text" name="fio" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-fio'], $_REQUEST['fio'], $userInfo['fio'] ) ) ); ?>" data-rule-regexp=".+" data-msg-regexp="Укажите Ваше имя!" />
+    </div>
+  </label>
+  <div class="clearfix"></div>
+
+  <label>
+    <div class="form-name small">Телефон:<span class="required">*</span></div>
+    <div class="form-value"><input type="text" name="phones" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-phones'], $_REQUEST['phones'], $userInfo['phones'] ) ) ); ?>" data-rule-regexp="[0-9]{3,}" data-msg-regexp="Укажите Ваш контактный телефон!" /></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <label>
+    <div class="form-name small">E-mail:<span class="required">*</span></div>
+    <div class="form-value"><input type="text" name="email" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-email'], $_REQUEST['email'], $userInfo['email'] ) ) ); ?>" data-rule-required="true" data-msg-required="Укажите e-mail!" data-rule-email="true" data-msg-email="Укажите правильный e-mail!" /></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <label>
+    <div class="form-name small colored">Код на скидку:</div>
+    <div class="form-value colored"><input type="text" name="code" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-code'], $_REQUEST['code'], $userInfo['code'] ) ) ); ?>" /></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <?php /* ?>
+  <label>
+    <div class="form-name small">Оплата:</div>
+    <div class="form-value">
+      <select name="payment" class="btn-select">
+        <?php foreach( $paymentList as $id => $payment ) { ?>
+          <option value="<?php echo $id; ?>"><?php echo $payment; ?></option>
+        <?php } ?>
+      </select>
+      </div>
+  </label>
+  <div class="clearfix"></div>
+  <?php */ ?>
+
+  <?php /* ?>
+  <label>
+    <div class="form-name small">&nbsp;</div>
+    <div class="form-value"><input type="checkbox" name="delivery_info" <?php if( $_COOKIE['orders-form-value-delivery_info'] ) { echo ' checked '; } ?> />&nbsp;<span class="small">Я хочу сообщить здесь подробности доставки</span></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <div class="js-delivery-info order-delivery-info <?php if( $_COOKIE['orders-form-value-delivery_info'] ) { echo ' active '; } ?> ">
+    <label>
+      <div class="form-name small small-line">Дата доставки:<span class="required">*</span></div>
+      <div class="form-value"><input type="text" name="delivery_date" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-delivery_date'] ) ) ); ?>" class="js-date" style="width: 150px;" /></div>
+    </label>
+    <div class="clearfix"></div>
+
+    <label>
+      <div class="form-name small">Город:<span class="required">*</span></div>
+      <div class="form-value"><?php echo Utils::CheckCityByIP(); ?></div>
+    </label>
+    <div class="clearfix"></div>
+
+    <label>
+      <div class="form-name small">Улица:<span class="required">*</span></div>
+      <div class="form-value"><input type="text" name="delivery_street" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-delivery_street'] ) ) ); ?>" /></div>
+    </label>
+    <div class="clearfix"></div>
+
+    <label>
+      <div class="form-name small">Дом:<span class="required">*</span></div>
+      <div class="form-value"><input type="text" name="delivery_building" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-delivery_building'] ) ) ); ?>" /></div>
+    </label>
+    <div class="clearfix"></div>
+
+    <label>
+      <div class="form-name small">Квартира:</div>
+      <div class="form-value"><input type="text" name="delivery_flat" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-delivery_flat'] ) ) ); ?>" /></div>
+    </label>
+    <div class="clearfix"></div>
+
+    <label>
+      <div class="form-name small small-line">Код/домофон:</div>
+      <div class="form-value"><input type="text" name="delivery_code" value="<?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-delivery_code'] ) ) ); ?>" /></div>
+    </label>
+    <div class="clearfix"></div>
+
+    <label>
+      <div class="form-name small small-line">Доп. информация по доставке:</div>
+      <div class="form-value"><textarea name="info"><?php echo htmlspecialchars( Utils::SelectValue( array( $_COOKIE['orders-form-value-info'] ) ) ); ?></textarea></div>
+    </label>
+    <div class="clearfix"></div>
+  </div>
+  <?php */ ?>
+
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Оформить заявку</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+
+  </form>
+</div>

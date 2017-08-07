@@ -1,0 +1,17 @@
+<h1 class="align">Акции наших партнеров</h1>
+<div class="slider-box">
+  <div class="s-slider-prev"></div>
+  <div class="s-slider-next"></div>
+
+  <div class="sale-slider" data-component="site/ui/front/slider" data-attrs="<?php echo htmlspecialchars( json_encode( array( 'prevButton' => '.slider-box .s-slider-prev', 'nextButton' => '.slider-box .s-slider-next', 'autoSlide' => true, 'autoSlideTimer' => 3000 ) ) ); ?>">
+    <div class="slider">
+      <?php foreach( $itemsList as $item ) { ?>
+        <div class="slide">
+          <?php if(trim($item['text']!='')){?><a href="<?php echo '/actions/'.( $item['id'] ).'-'.( $item['href'] ); ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>"><?php } ?>
+            <img src="<?php echo '/thumbs/459x400x100/'.( $item['picture'] ); ?>" width="460" height="322" alt="">
+         <?php if(trim($item['text']!='')){?> </a><?php } ?>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+</div>

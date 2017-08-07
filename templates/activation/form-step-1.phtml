@@ -1,0 +1,47 @@
+<div class="popup-dialog-wrapper activation">
+  <h1 class="btn-top-2">Активация on-line</h1>
+  <?php $form->header(); ?>
+  <?php echo $alert ? '<p class="alert">'.$alert.'</p>' : ''; ?>
+  <input type="hidden" name="step" value="1" />
+
+  <label>
+    <div class="form-name">Номер карты (если есть) или название магазина</div>
+    <div class="form-value"><?php $form->field('cardnum'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Номер телефона<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('phone', ' data-rule-regexp="^[a-zA-Zа-яА-Я0-9-].*$" data-msg-regexp="Укажите контактный телефон!" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">E-mail</div>
+    <div class="form-value"><?php $form->field('email'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Имя</div>
+    <div class="form-value"><?php $form->field('fio', ' data-rule-regexp=".+" data-msg-regexp="Укажите Ваше имя!" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <p>* В течение дня с вами свяжется администратор студии </p>
+
+  <?php /* ?>
+  <label>
+    <div class="form-name">Введите номер карты<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('cardnum', 'data-rule-regexp="^[a-zA-Z0-9-].*$" data-msg-regexp="Укажите номер карты!"'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Телефон клиента<b class="required">*</b></div>
+    <div class="form-value"><?php $form->field('phone', ' data-rule-regexp="^[a-zA-Zа-яА-Я0-9-].*$" data-msg-regexp="Укажите контактный телефон!" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <?php */ ?>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Активация</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+  <?php $form->footer(); ?>
+</div>

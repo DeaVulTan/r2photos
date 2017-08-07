@@ -1,0 +1,188 @@
+<h1>Привязка: <?php
+  echo $linksObj->clName($item_type).' "';
+  echo (preg_match('/\/.*?\.(jpg|jpeg|png|gif|tiff|bmp)$/i', $item_name) ? '<img src="../'.$item_name.'">' : $item_name);
+  echo '" => ',$target_name; ?></h1>
+<hr /><?php if (defined('LANG')) { ?><?php include(Site::GetTemplate($this->name, 'filter')); ?><hr /><?php } ?>
+<?php $info =& $linksObj->clGetInfo(); ?>
+<table>
+<form action="<?php echo Site::CreateUrl($this->name.'-changelistto', $this->values); ?>" method="post">
+<tr>
+ <td width="99%"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <td class="pr10"><a href="<?php echo strtolower($info[$item_type]['table']).'-list.htm'; ?>" title="Вернуться"><img src="image/btn-list.gif" title="Вернуться" alt="Вернуться" /></a></td>
+<?php if(!$isAjax) { ?>
+ <td><input type="image" src="image/btn-edit.gif" title="Внести изменения" class="button" onclick="return onChange();" /><input type="hidden" name="_change" value="1" /></td>
+<?php } ?>
+</tr>
+</table>
+<br />
+
+<?php if($isAjax) { ?>
+<div style="border-radius: 5px 5px 5px 5px;" class="filterBgr pt5 pb5 pl10 pr10 mb10">
+<table>
+<tbody><tr>
+ <td class="pr5">Введите часть наименования:</td>
+ <td class="pr20"><input id="field_like" name="like" value="" class="field" style="width: 200px;" type="text"></td>
+</tr>
+</tbody></table>
+</div>
+<script language="javascript">
+ var field_like_timer = -1;
+ var field_like_value = '';
+ (function( callback ){
+  var deferredJquery = function(){
+    if( typeof( $ ) === 'function' ) {
+      return callback();
+    }
+    return setTimeout( deferredJquery, 100 );
+  };
+  deferredJquery();
+ })(
+   function(){
+      $('#field_like').focus();
+      setInterval('checkFieldLike();', 100);
+   };
+ );
+
+ function checkFieldLike()
+ {
+    var value = $('#field_like').val();
+    if(value != field_like_value)
+    {
+        field_like_value = value;
+        clearTimeout(field_like_timer);
+        field_like_timer = setTimeout('updateFieldLike();', 1000);
+    }
+ }
+ function updateFieldLike()
+ {
+    field_like_timer = -1;
+    $.ajax({
+        type: "POST",
+        url: "cataloglinks-to_<?php echo $item_type; ?>_<?php echo $item_id; ?>_<?php echo $target_type; ?>.htm",
+        data: 'is_ajax=1&like='+field_like_value,
+        success: function(response) {
+            $('#items_content').html(response);
+        }
+    });
+ }
+</script>
+<?php } ?>
+
+<div id="items_content">
+<?php ob_start(); ?>
+<table cellpadding="4" cellspacing="1" border="0" align="center" class="table">
+<tr>
+ <th>id</th>
+ <th>Сортировка</th>
+ <th><?php if(!$isAjax) { ?><input type="checkbox" id="cbAll" /><br /><label for="cbAll">Все</label><?php } ?></th>
+ <th width="100%">
+  <div style="position: relative;">
+    Наименование
+    <div style="position: absolute; left: 0; top: 0;">
+      <input type="text" class="field js-filter" style="width: 200px;" placeholder="фильтр..." />
+    </div>
+  </div>
+ </th>
+</tr>
+<?php
+   if (count($items) > 0)
+   {
+    $colors = array(
+      0 => '#EBEBEB',
+      1 => '#DBDBDB',
+      2 => '#CBCBCB',
+      3 => '#BBBBBB',
+      4 => '#ABABAB',
+      5 => '#9B9B9B',
+      6 => '#8B8B8B',
+    );
+    foreach ($items as $id => $item) { $color = $colors[0 + $item['level']];
+?>
+<input type="hidden" name="targetIds[<?php echo $item['id']; ?>]" value="1" />
+<?php if(isset($links[$item['id']])) { ?>
+<input type="hidden" name="linkIds[<?php echo $item['id']; ?>]" value="<?php echo $links[$item['id']]['id']; ?>" />
+<?php } ?>
+<tr class="row js-row">
+ <td align="center" style="background: <?php echo $color; ?>;"><?php echo $item['id']; ?></td>
+ <td align="center" style="background: <?php echo $color; ?>;"><input type="text" size="7" name="ord[<?php echo $item['id']; ?>]" value="<?php echo $links[$item['id']]['ord']; ?>"></td>
+ <td align="center" style="background: <?php echo $color; ?>;"><?php Action::CheckBox('itemIds['.$item['id'].']', $checked = isset($links[$item['id']]), ' class="cbItem '.( $item['id'] == $item_id && $sameTypes ? ' js-fixed ' : '' ).' " '.( $item['id'] == $item_id && $sameTypes ? ' disabled checked ' : '' ).' '); ?></td>
+ <td class="item_ids" data-text="<?php echo htmlspecialchars( strip_tags( $item[ $info[ $target_type ]['field'] ] ) ); ?>" style="background: <?php echo $color; ?>;"><?php echo ($checked ? '<strong>'.$item[ $info[ $target_type ]['field'] ].'</strong>' : $item[ $info[ $target_type ]['field'] ]); ?></td>
+</tr>
+<?php
+      }
+   } else {
+?>
+<tr class="row"><td colspan="7" align="center">Нет позиций</td></tr>
+<?php
+   }
+?>
+</table>
+<?php $itemsContent = ob_get_contents(); ob_end_flush(); ?>
+</div>
+
+<br />
+<table><tr>
+ <td width="99%"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+<?php if(!$isAjax) { ?>
+ <td><input type="image" src="image/btn-edit.gif" title="Внести изменения" class="button" onclick="return onChange();" /></td>
+<?php } ?>
+</tr></form></table>
+<script language="javascript">
+var useRowsClicks = true;
+var oldTableColor = '#FFFFFF';
+  var UpdateByFilter = function() {
+    var text = $( '.js-filter' ).val().replace( /^\s+|\s+$/, '' ).toLowerCase();
+    var exp = new RegExp( text );
+    $( '.js-row' ).each(function(){
+      var match = $( this ).find( '.item_ids' ).data( 'text' ).toLowerCase().match( exp );
+      if( match ) {
+        $( this ).show();
+      } else {
+        $( this ).hide();
+      }
+    });
+  };
+
+ (function( callback ){
+  var deferredJquery = function(){
+    if( typeof( $ ) === 'function' ) {
+      return callback();
+    }
+    return setTimeout( deferredJquery, 100 );
+  };
+  deferredJquery();
+ })( function(){
+    $( '.js-filter' ).on( 'change keyup', UpdateByFilter );
+
+    //rows clicks
+    if( typeof( useRowsClicks ) != 'undefined' && useRowsClicks ) {
+      $(function(){
+        var oldTableColor = '#FFFFFF';
+        $('TR.row').mouseover(function(){
+          oldTableColor = $(this).find('TD').css('background-color');
+          $(this).find('TD').css({background: '#FFFFFF'});
+        }).mouseout(function(){
+          $(this).find('TD').css({background: oldTableColor});
+        });
+        $('.item_ids').click(function(){
+          var val = $(this).closest('tr').find('INPUT[type=checkbox]').attr('checked');
+          if( $(this).closest('tr').find('INPUT[type=checkbox]').hasClass( 'js-fixed' ) ) {
+            return false;
+          }
+          $(this).closest('tr').find('INPUT[type=checkbox]').attr({ checked: !val });
+        });
+        $('#cbAll').click(function(){
+          var checked = $( this ).is( ':checked' );
+          $('INPUT.cbItem').each(function(){
+            if( $( this ).closest( 'tr' ).css( 'display' ) == 'none' || $( this ).closest( 'tr' ).find( 'input[type=checkbox]' ).hasClass( 'js-fixed' ) ) {
+              return;
+            }
+            $( this ).attr( 'checked', checked );
+          });
+        });
+        if($('INPUT.cbItem').length == $('INPUT.cbItem[checked]').length)
+          $('#cbAll').attr('checked', true);
+      });
+    }
+ });
+</script>

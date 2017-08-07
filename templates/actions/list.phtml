@@ -1,0 +1,11 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($itemsList) > 0) { ?>
+<?php foreach ($itemsList as $id => $row) { ?>
+<div>
+ <a href="<?php echo $this->menuPath; ?>actions/<?php echo $id; ?>-<?php echo $row['href']; ?>" title="<?php echo htmlspecialchars(trim($row['name'])); ?>"><strong><?php echo trim($row['name']); ?></strong></a><br />
+ <?php $announce = trim(preg_replace(array('/<p>/', '/<\/p>/', '/<br\s?\/>$/'), array('', '<br />', ''), $row['announce'])); echo $announce; ?><br />
+ <a href="<?php echo $this->menuPath; ?>actions/<?php echo $id; ?>-<?php echo $row['href']; ?>" title="<?php echo htmlspecialchars(trim($row['name'])); ?>">подробнее</a>
+</div>
+<?php } ?>
+<?php if ($numPages > 1) { ?><div><?php echo Site::GetPageNavigator($page, $numPages, $this->menuPath.'actions/page/%'); ?></div><?php } ?>
+<?php } else echo "<p>Новостей нет.</p>"; ?>

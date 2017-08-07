@@ -1,0 +1,4 @@
+<h1 class="work-h1 calendar-title">Календарь новостей</h1>
+<div class="calendar-content" data-component="site/ui/calendar" data-parameters="<?php echo htmlspecialchars( json_encode( array( 'current' => $curDate, 'next' => strtotime( '+1 month', $curDate ), 'prev' => strtotime( '-1 month', $curDate ) ) ) ); ?>">
+  <?php include( Site::GetTemplate( $this->name, 'calendar-table' ) ); ?>
+</div>

@@ -1,0 +1,6 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($items) > 0) { ?>
+<?php foreach ($items as $id => $item) { ?>
+<p><a href="<?php echo $this->menuPath; ?>partners/<?php echo $item['id']; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><img src="<?php echo $item['logo']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" /></a></p>
+<?php } ?>
+<?php } else echo "<p>Партнеров нет.</p>"; ?>

@@ -1,0 +1,7 @@
+<div>
+ <?php if(strlen($img = $item['logo']) && file_exists(Site::GetParms('absolutePath').$img)) { $iwh = getimagesize(Site::GetParms('absolutePath').$img); ?>
+  <img src="<?php echo $img; ?>" <?php echo $iwh[3]; ?> alt="<?php echo htmlspecialchars($item['name']); ?>" />
+ <?php } ?>
+ <?php echo $item['description']; ?>
+</div>
+<p><a href="<?php echo $this->menuPath; ?>partners" title="Все партнеры">Все партнеры</a></p>

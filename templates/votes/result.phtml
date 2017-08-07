@@ -1,0 +1,17 @@
+<p><b>Результаты голосования: "<?php echo $vote['question']; ?>"</b></p>
+<p>Всего проголосовало: <?php echo Votes::GetMansWord($total); ?>.</p>
+<table width="50%">
+<?php
+   $i = 0;
+   foreach ($vars as $k => $v) {
+      $i++;
+      $width = intval(300 * ($v['q'] / $total));
+?>
+<tr bgcolor="#<?php echo ($i % 2) ? 'E9EFF7' : 'FFFFFF' ?>">
+ <td width="40%"><?php echo $v['variant'] ?></td>
+ <td nowrap><?php echo $v['q']; ?> (<?php echo round($v['q'] / $total * 100); ?>%)</td>
+ <td width="60%"><table><tr><td bgcolor="#2460AF" style="width: <?php echo $width; ?>px; height: 15px;"></td></tr></table></td>
+</tr>
+<?php } ?>
+</table>
+<p><a href="<?php echo $this->menuPath.$this->name; ?>" title="Все опросы">Все опросы</a></p>

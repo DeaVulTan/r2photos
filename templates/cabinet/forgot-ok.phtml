@@ -1,0 +1,4 @@
+<?php $isAjax = Site::GetParms( 'isAjax' ); ?>
+<div class="<?php if( $isAjax ) { echo ' popup-dialog-wrapper '; } ?>">
+  <p><?php echo nl2br(Utils::GetValue('text_after_forgot_ok')); ?></p>
+</div>

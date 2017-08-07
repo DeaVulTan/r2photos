@@ -1,0 +1,61 @@
+<?php
+$isChange = false;
+if (sizeOf($this->table->columns) > 0) foreach ($this->table->columns as $k => $v) if ($v['autoUpdate']) {
+   $isChange = true;
+   break;
+}
+?>
+<h1>Счётчики на сайте</h1>
+<table class="w100 mb10">
+<tr>
+ <td class="w100"><?php echo ($numPages > 1 ? $pageNavigator : ''); ?></td>
+ <?php if (!$numOfItems) { ?><td class="pl10"><a href="<?php echo Site::CreateUrl($this->name.'-editself'); ?>" title="Добавить"><img src="image/btn-add.gif" width="79" height="22" alt="Добавить" /></a></td><?php } ?>
+</tr>
+</table>
+<div id="tableList">
+<table class="w100 table">
+<tr>
+ <?php foreach ($this->table->columns as $k => $v) { ?>
+ <th><?php echo $v['name']; ?></th>
+ <?php } ?>
+ <th>Изменить</th>
+</tr>
+<?php if ($numOfItems > 0) {
+   $ind = 1;
+   $keys = array_keys($items);
+   foreach ($items as $id => $item) {
+      $key = $ind - 1;
+      $prev = $key - 1;
+      $next = $key + 1;
+      $class = ($class == 1 ? 2 : 1);
+?>
+<tr class="td<?php echo $class; ?>" align="center">
+ <?php foreach ($this->table->columns as $k => $v) {
+   echo '<td'.($v['style'] ? ' '.$v['style'] : '').'>';
+   if ($v['function']) {
+      $name = $v['function'];
+      $this->$name($k, $item);
+   }
+   else {
+      if ($v['autoUpdate']) $this->echoAutoUpdate($k, $this->table->fields[$k]['name'], $item, $v['addstyle']);
+      else {
+         if (preg_match('/^([^\.]+)\.htm(l)?$/', $item[$k])) echo '<a href="'.Site::GetParms('siteRef').$item[$k].'" target="_blank">'.$item[$k].'</a>';
+         else if (preg_match('/^http\:\/\/([0-9a-zA-Zа-яА-ЯёЁ\-\.\/]+)$/', $item[$k])) echo '<a href="'.$item[$k].'" target="_blank">'.$item[$k].'</a>';
+         else echo $item[$k];
+      }
+   }
+   echo '</td>';
+ }
+ ?>
+ <td align="center"><div class="pngFix"><a href="<?php echo Site::CreateUrl($this->name.'-editself'); ?>"><img src="image/btn-edit2.png" width="15" height="15" alt="Изменить" /></a></div></td>
+</tr>
+<?php
+      $ind ++; }
+   } else {
+?>
+<tr><td colspan="100" align="center">Нет записей</td></tr>
+<?php
+   }
+?>
+</table>
+</div>

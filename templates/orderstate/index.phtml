@@ -1,0 +1,10 @@
+
+<?php $form->header(); ?>
+<table style="margin:auto; text-align:center;">
+<?php echo ($alert ? '<tr><td><p style="color:red">'.$alert.'</p></tr></td>' : ''); ?>
+<tr><td style="padding-bottom:15px;"><span class="red">*</span> Введите номер Вашего заказа: </td></tr>
+<tr><td style="padding-bottom:15px;"><?php $form->field('code', ' data-rule-regexp="^[0-9]+$" data-msg-regexp="Номер заказа должен состоять из цифр!" '); ?></td> </tr>
+ 
+ <tr><td style="padding-bottom:15px;" align="center"><input type="submit" value="Отправить" /></td></tr>
+</table>
+<?php $form->footer(); ?>

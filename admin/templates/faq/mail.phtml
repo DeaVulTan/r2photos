@@ -1,0 +1,31 @@
+<html>
+<head>
+ <title><?php echo Utils::GetValue('subject_mail_after_add_answer_faq'); ?></title>
+ <style><!--
+ TABLE, P, BODY { font-family: Arial; font-size: 12px; color: #2A2A2A; }
+ H1 { font-size: 12px; color: #ffffff; background-color: #ABABAB; padding: 2 5 2 5; font-weight: bold; }
+ //-->
+ </style>
+</head>
+<body>
+<h1><?php echo Utils::GetValue('subject_mail_after_add_answer_faq'); ?></h1>
+<table border="1" cellpadding="4" cellspacing="0">
+ <tr>
+  <td>ФИО</td>
+  <td><?php echo $parms['name']; ?></td>
+ </tr>
+ <tr>
+  <td width="1%" nowrap="nowrap">E-mail</td>
+  <td><?php echo $parms['email']; ?></td>
+ </tr>
+ <tr>
+  <td>Вопрос</td>
+  <td><?php echo nl2br($parms['question']); ?></td>
+ </tr>
+ <tr>
+  <td>Ответ</td>
+  <td><?php echo nl2br($parms['answer']); ?></td>
+ </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<?php if (sizeOf($parts) > 0) { ?>
+<ul>
+ <?php foreach ($parts as $id => $item) { ?><li><a href="<?php echo $this->menuPath; ?>photo/<?php echo $id; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a></li><?php } ?>
+</ul>
+<?php } ?>

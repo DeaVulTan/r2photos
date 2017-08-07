@@ -1,0 +1,168 @@
+<?php
+preg_match('/^([^\-\.]+)/', Site::GetParms('scriptName'), $uri);
+
+$mainMenu = array();
+if (IS_CONFIG === true || IS_ADMINS === true || IS_USERS === true || IS_BAN === true) {
+  $mainMenu['config'] = array('name' => 'Конфигурация', 'matches' => 'configs|admins|users|bannersplaces|banners|langs');
+  $items = array();
+  if (IS_CONFIG === true) $items[] = array('configs-list.htm', 'Настройки');
+  if (IS_ADMINS === true)   $items[] = array('admins-list.htm', 'Права доступа');
+  if (IS_USERS === true)    $items[] = array('users-list.htm', 'Пользователи');
+  if (IS_BAN === true)      $items[] = array('bannersplaces-list.htm', 'Банерные места');
+  if (IS_ADMINS === true && defined("LANG"))   $items[] = array('langs-list.htm', 'Перевод фраз');
+  if (IS_CONFIG === true)   $items[] = array('city-list.htm', 'Города');
+  if (sizeOf($items) > 0) $mainMenu['config']['items'] = $items;
+}
+if (IS_CONFIG === true || IS_META === true || IS_OFFICE === true) {
+  $mainMenu['seo'] = array('name' => 'SEO', 'matches' => 'meta|links|copyright|sitepages|robots|counters|search');
+  $items = array();
+  if (IS_META === true)   $items[] = array('meta-list.htm', 'Метаинформация');
+  if (IS_CONFIG === true) $items[] = array('counters-listself.htm', 'Счётчики на сайте');
+  if (IS_OFFICE === true) {
+    $items[] = array('robots-listself.htm', 'Robots.txt');
+    $items[] = array('links-list.htm', 'Ссылки (реклама)');
+    $items[] = array('copyright-list.htm', 'Строка копирайта');
+    $items[] = array('sitepages-list.htm', 'Посещаемые страницы сайта');
+    $items[] = array('search.htm', 'Поиск по администратору');
+  }
+  if (sizeOf($items) > 0) $mainMenu['seo']['items'] = $items;
+}
+if (IS_MENU === true || IS_MENU_ === true) {
+  $mainMenu['navigation'] = array('name' => 'Навигация', 'matches' => 'mainmenu|slider');
+  $items = array();
+  if (IS_MENU === true || IS_MENU_ === true)   $items[] = array('mainmenu-list.htm', 'Навигация');
+  if (IS_MENU === true)   $items[] = array('slider-list.htm', 'Слайдер');
+  if (sizeOf($items) > 0) $mainMenu['navigation']['items'] = $items;
+}
+if (IS_CATALOG === true) {
+  $mainMenu['catalog'] = array('name' => 'Каталог продукции', 'matches' => 'catalog|items|fabrics|category');
+  $items = array();
+  $items[] = array('catalog-list.htm', 'Разделы каталога');
+  //$items[] = array('category-list.htm', 'Категории услуг');
+  //$items[] = array('fabrics-list.htm', 'Производители');
+  $items[] = array('items-list.htm', 'Позиции каталога');
+  $items[] = array('certificates-list.htm', 'Сертификаты');
+  if (sizeOf($items) > 0) $mainMenu['catalog']['items'] = $items;
+}
+if (IS_ORDERS === true || IS_ACTIVATION === true) {
+  $mainMenu['order'] = array('name' => 'Заказы', 'matches' => 'orders|ordersitems|ordersstatus|cards|activation|corr');
+  $items = array();
+  if (IS_ORDERS === true)   $items[] = array('orders-list.htm', 'Заказы');
+  if (IS_ORDERS === true)   $items[] = array('ordersitems-list.htm', 'Позиции заказов');
+  if (IS_ACTIVATION=== true)$items[] = array('activation-list.htm', 'Заявки на активацию');
+  if (IS_ACTIVATION=== true)$items[] = array('ordersphotographer-list.htm', 'Заявки фотосессий у фотографа');
+  if (IS_ORDERS=== true)$items[] = array('certificatesorders-list.htm', 'Заказы сертификатов');
+  if (IS_ORDERS=== true)$items[] = array('ordersstatus-list.htm', 'Статусы заказов');
+  if (IS_ORDERS === true)      $items[] = array('corr-list.htm', 'Переписка');
+  if (sizeOf($items) > 0) $mainMenu['order']['items'] = $items;
+}
+if (IS_RETOUCHES === true || IS_LOCATIONS === true || IS_PHOTOGRAPHERS === true || IS_ACTIONS === true || IS_CALLBACK === true || IS_NEWS === true || IS_ARTICLES === true || IS_FAQ === true || IS_OPINIONS === true || IS_VACS === true || IS_PHOTO === true || IS_VOTES === true || IS_LICENCE === true || IS_PARTNERS === true) {
+  $mainMenu['over'] = array('name' => 'Прочие разделы', 'matches' => 'photographers|actions|news|articles|faq|opinions|vacs|photoarchiv|photoimages|votes|votesvars|licenses|partners|locations|retouches|portfolio');
+  $items = array();
+  if (IS_NEWS === true)     $items[] = array('news-list.htm', 'Новости');
+  if (IS_ACTIONS === true)  $items[] = array('actions-list.htm', 'Акции');
+  if (IS_ARTICLES === true) $items[] = array('articles-list.htm', 'Статьи');
+  if (IS_FAQ === true)      $items[] = array('faq-list.htm', 'Вопрос-ответ');
+  if (IS_OPINIONS === true) $items[] = array('opinions-list.htm', 'Отзывы');
+  if (IS_VACS === true)     $items[] = array('vacs-list.htm', 'Вакансии');
+  if (IS_PHOTOGRAPHERS === true) $items[] = array('works-list.htm', 'Виды работ фотографов');
+  if (IS_PHOTOGRAPHERS === true) $items[] = array('photographers-list.htm', 'Фотографы');
+  if (IS_PHOTO === true)    $items[] = array('photoimages-list.htm', 'Фотоархив');
+  if (IS_VOTES === true)    $items[] = array('votes-list.htm', 'Голосование');
+  if (IS_LICENCE === true)  $items[] = array('licenses-list.htm', 'Лицензии / Сертификаты');
+  if (IS_PARTNERS === true) $items[] = array('partners-list.htm', 'Партнёры');
+  if (IS_CALLBACK === true) $items[] = array('callback-list.htm', 'Заявки обратного звонка');
+  if (IS_LOCATIONS === true)$items[] = array('locations-list.htm', 'Локации');
+  if (IS_RETOUCHES === true)$items[] = array('retouches-list.htm', 'Примеры ретуши');
+  if (IS_RETOUCHES === true)$items[] = array('portfolio-list.htm', 'Портфолио');
+  if (sizeOf($items) > 0) $mainMenu['over']['items'] = $items;
+}
+if (IS_FORUM === true) {
+  $mainMenu['forum'] = array('name' => 'Форум', 'matches' => 'categories|forums|topics|posts');
+  $items = array();
+  $items[] = array('categories-list.htm', 'Категории');
+  $items[] = array('forums-list.htm', 'Форумы');
+  $items[] = array('topics-list.htm', 'Темы');
+  $items[] = array('posts-list.htm', 'Сообщения');
+  if (sizeOf($items) > 0) $mainMenu['forum']['items'] = $items;
+}
+if (IS_SUBSCRIBE === true) {
+  $mainMenu['mail'] = array('name' => 'Рассылка', 'matches' => 'subscribers|subscribersmain');
+  $items = array();
+  $items[] = array('subscribers-list.htm', 'Подписчики');
+  $items[] = array('subscribersmain-list.htm', 'Рассылки');
+  if (sizeOf($items) > 0) $mainMenu['mail']['items'] = $items;
+}
+
+$prev = '';
+$checkPrev = true;
+
+
+if (sizeOf($mainMenu) > 0) {
+  foreach ($mainMenu as $id => $arr) {
+    $isSel = (preg_match('/^('.$arr['matches'].')$/', $uri[1]) ? true : false);
+    if ($isSel) $checkPrev = false;
+    if (sizeOf($arr['items']) > 0) { ?>
+      <div id="submenu_<?php echo $id; ?>" class="dn pa submenu">
+        <?php $i = 1; 
+        foreach ($arr['items'] as $idI => $item) { ?>
+          <div class="pt5 pr10 pb5 pl10 smBgr<?php echo ($i == sizeOf($arr['items']) ? 'Last' : ''); ?>"><a href="<?php echo $item[0]; ?>"><?php echo $item[1]; ?></a></div>
+          <?php $i ++; 
+        } ?>
+      </div>
+    <?php } 
+    if ($checkPrev) $prev = $id; 
+  } 
+  if ($prev == $id) $prev = '';
+}  ?>
+
+<table class="w100">
+  <tr valign="top">
+    <?php if (!sizeOf($mainMenu)) { ?>
+      <td>
+        <div class="pngFix"><img src="image/m-left.png" width="4" height="63" alt="" /></div>
+      </td>
+    <?php } ?>
+    <?php $i = 1; 
+    if (sizeOf($mainMenu) > 0){
+      foreach ($mainMenu as $id => $arr) {
+        $isSel = (preg_match('/^('.$arr['matches'].')$/', $uri[1]) ? true : false);
+        if ($i == 1) { ?>
+          <td>
+            <div class="pngFix"><img src="image/m-left<?php echo ($isSel ? '-a' : ''); ?>.png" width="4" height="63" alt="" /></div>
+          </td>
+        <?php }
+        if ($i > 1) { ?>
+          <td>
+            <div class="leftM<?php echo ($isSel ? 'Sel' : ''); ?>"></div>
+          </td>
+        <?php } ?>
+        <td id="<?php echo $id; ?>" class="menuBgr<?php echo ($isSel ? 'Sel' : ''); ?> pl10 pr10 mainmenu" nowrap="nowrap" align="center"<?php echo (!sizeOf($arr['items']) ? ' style="cursor: pointer;" onclick="document.location.href=\''.$arr['matches'].'-list.htm\';"' : ''); ?>>
+          <div class="app-menu-item">
+            <div><img src="image/i-<?php echo $id.($isSel ? '-a' : ''); ?>.gif" width="38" height="38" alt="" /></div>
+            <div><?php echo $arr['name']; ?></div>
+            <?php if (sizeOf($arr['items']) > 0) { ?>
+              <div class="dn pa submenu">
+                <?php $j = 1; 
+                foreach ($arr['items'] as $idI => $item) { ?>
+                  <a href="<?php echo $item[0]; ?>" class="pt5 pr10 pb5 pl10 smBgr<?php echo ($j == sizeOf($arr['items']) ? 'Last' : ''); ?>"><?php echo $item[1]; ?></a>
+                  <?php $j ++; 
+                } ?>
+              </div>
+            <?php } ?>
+          </div>
+        </td>
+        <td>
+          <div class="rightM<?php echo ($isSel ? 'Sel' : ''); ?>"></div>
+        </td>
+        <?php if ($i < sizeOf($mainMenu) && !$isSel && $id <> $prev) { ?>
+          <td><img src="image/m-deliver.gif" width="1" height="63" alt="" /></td>
+        <?php }
+        $i ++; 
+      }
+    } ?>
+    <td class="w100 menuBgr"></td>
+    <td><div class="pngFix"><img src="image/m-right.png" width="4" height="63" alt="" /></div></td>
+  </tr>
+</table>
+<div class="underMenu mb20"></div>

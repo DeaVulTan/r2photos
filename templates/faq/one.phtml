@@ -1,0 +1,6 @@
+<div>
+ <div><?php echo date("d.m.y", $faq['idate']); ?> | <?php echo $faq['name']; ?></div>
+ <?php echo $faq['question']; ?>
+ <div class="answer"><b>Ответ:</b> <?php echo $faq['answer']; ?></div>
+</div>
+<p><a href="<?php echo $this->menuPath; ?>faq" title="Все вопросы">Все вопросы</a></p>

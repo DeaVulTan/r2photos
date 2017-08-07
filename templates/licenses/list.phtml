@@ -1,0 +1,10 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($items) > 0) { ?>
+<div id="app-gallery">
+<?php foreach ($items as $id => $item) { ?>
+<div style="float: left; width: 150px; height: 200px; margin: 0 20px 30px 0;">
+ <a href="<?php echo $item['image_big']; ?>" rel="gallery"><img src="<?php echo $item['image_small']; ?>" /></a>
+</div>
+<?php } ?>
+</div>
+<?php } ?>

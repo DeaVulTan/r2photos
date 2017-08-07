@@ -1,0 +1,16 @@
+<div class="slider-box">
+  <div class="pr-slider-prev"></div>
+  <div class="pr-slider-next"></div>
+
+  <div class="partner-slider" style="margin: 0 0 0 50px;" data-component="site/ui/front/slider" data-attrs="<?php echo htmlspecialchars( json_encode( array( 'prevButton' => '.pr-slider-prev', 'nextButton' => '.pr-slider-next', 'autoSlide' => true, 'autoSlideTimer' => 3000 ) ) ); ?>">
+    <div class="slider">
+      <?php foreach( $itemsList as $item ) { ?>
+        <div class="slide">
+          <a href="<?php echo $this->menuPath; ?>partners/<?php echo $item['id']; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>">
+            <img src="<?php echo $item['logo']; ?>" width="209" height="103" alt=""></a>
+          </a>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+</div>

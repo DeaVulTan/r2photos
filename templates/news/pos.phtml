@@ -1,0 +1,10 @@
+<?php
+  $href = $this->menuPath.'news/'.( $row['id'] ).'-'.( $row['href'] );
+?>
+<div class="work-news-section">
+  <div class="work-news-border">
+    <a class="icon" href="<?php echo $href; ?>" title="Смотреть"></a>
+    <a class="h1" href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $row['name'] ); ?>"><?php echo htmlspecialchars( $row['name'] ); ?><span><?php echo date( 'd.m.Y', $row['idate'] ); ?></span></a>
+    <p><?php echo $row['announce']; ?></p>
+  </div>
+</div>

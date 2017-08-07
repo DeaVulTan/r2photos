@@ -1,0 +1,9 @@
+<?php $form->header(); ?>
+<?php echo $alert ? '<span class="red">'.$alert.'</span>' : ''; ?>
+<label><span class="red">*</span>Ваше имя:<br><?php $form->field('fio', ' data-rule-regexp="[a-zA-Zа-яА-Я]+" data-msg-regexp="Укажите Ваше имя!"'); ?></label>
+<label>E-mail:<br><?php $form->field('email'); ?></label>
+<label><span class="red">*</span>Телефон:<br><?php $form->field('phone', ' data-rule-regexp="[0-9]{3,}" data-msg-regexp="Укажите Ваш контактный телефон!" '); ?></label>
+<label><span class="red">*</span>Сообщение:<br><?php $form->field('text', ' data-rule-regexp="[a-zA-Zа-яА-Я]+" data-msg-regexp="Укажите сообщение!"'); ?></label>
+<label><span class="red">*</span>Код:<?php $form->field('code', 'style="width:50px;" data-rule-regexp="^[0-9]+$" data-msg-regexp="Укажите код!"'); ?></label>
+<input type="submit" value="Отправить"/>
+<?php $form->footer(); ?>

@@ -1,0 +1,30 @@
+<?php
+$isChange = false;
+if (sizeOf($this->table->columns) > 0) foreach ($this->table->columns as $k => $v) if ($v['autoUpdate']) {
+   $isChange = true;
+   break;
+}
+?>
+<h1><?php echo $this->topNav(); ?> (<?php echo  $numOfItems; ?>)</h1>
+<?php $this->checkFilterTemplate(); ?>
+<form name="<?php echo $this->name; ?>Form" action="<?php echo Site::CreateUrl($this->name.'-changelist', $this->values); ?>" method="post">
+<table class="w100 mb10">
+<tr>
+ <td nowrap="nowrap">Выводить по <select name="pager" class="field" onchange="document.location.href='<?php echo $this->name; ?>-pager_'+this.value+'.htm';"><?php foreach ($this->pager as $k => $v) echo '<option value="'.$k.'"'.($k == Site::GetSession($this->name."-pager") ? ' selected="selected"' : '').'>'.$v.'</option>'; ?></select> строк</td>
+ <?php if ($numPages > 1) { ?><td class="navDeliv pl10 pr10">|</td><?php } ?>
+ <td class="w100"><?php echo ($numPages > 1 ? $pageNavigator : ''); ?></td>
+ <?php $this->buttonsAddTop(); ?>
+ <td class="pl10"><a href="<?php echo Site::CreateUrl($this->name.'-edit', array(0, $this->values)); ?>" title="Добавить"><img src="image/btn-add.gif" width="79" height="22" alt="Добавить" /></a></td>
+ <?php if ($isChange) { ?><td class="pl10"><input type="image" src="image/btn-edit.gif" alt="Внести изменения" title="Внести изменения" name="_change" onclick="return onChange();" /></td><?php } ?>
+</tr>
+</table>
+<div id="tableList">
+<?php include(Site::GetTemplate('layout', 'list-table')); ?>
+</div>
+<table class="w100 mt10 mb10"><tr>
+ <td class="w100"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <?php $this->buttonsAddBottom($items); ?>
+ <td class="pl10"><input type="image" src="image/btn-del.gif" alt="Удалить выделенные строки" title="Удалить выделенные строки" name="_del" onclick="return onDelete();" /></td>
+ <?php if ($isChange) { ?><td class="pl10"><input type="image" src="image/btn-edit.gif" alt="Внести изменения" title="Внести изменения" name="_change" onclick="return onChange();" /></td><?php } ?>
+</tr></table>
+</form>

@@ -1,0 +1,36 @@
+<div class="block coll-4 coll-tablet first filter-box-content">
+  <div class="filter">
+    <a class="h1">Подобрать фотосессию</a>
+    <?php foreach( $partsList as $partItem ) {
+      $isCurrentPart = false && in_array($partItem['id'], $catPathIds);
+      ?>
+      <a class="h1 js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $partItem['id']; ?>" href="<?php echo $this->MakeUrl( array( 'catalog_id' => $partItem['id'] ) ); ?>" title="<?php echo htmlspecialchars( $partItem['name'] ); ?>"><?php echo $partItem['name']; ?></a>
+      <?php if( !empty( $partItem['subparts'] ) ) { ?>
+        <ul>
+          <?php foreach( $partItem['subparts'] as $subpart ) {
+            $isCurrentPart = $subpart['id'] == $part['id'];
+            ?>
+            <li>
+              <a class="js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $subpart['id']; ?>" href="<?php echo $this->MakeUrl( array( 'catalog_id' => $subpart['id'] ) ); ?>" title="<?php echo htmlspecialchars( $subpart['name'] ); ?>"><?php echo $subpart['name']; ?></a>
+            </li>
+          <?php } ?>
+        </ul>
+      <?php } ?>
+    <?php } ?>
+  </div>
+</div>
+
+<div class="block coll-8 coll-tablet content-images">
+  <h1 class="work-h1"><?=$item['name'];?></h1>
+  <div class="block catalog-section js-catalog-content" data-component="site/ui/zoom-images">
+    <img class="pointer" src="<?php echo $item['picture']; ?>" data-picture="<?php echo $item['picture']; ?>" alt="" />
+    <div class="catalog-summ">
+      <strong><?php echo number_format( $item['price'], 0, '.', '' ).' руб.'; ?></strong>
+      <a data-id="<?php echo $item['id']; ?>" data-count="1" data-component="site/ui/orders/do">Купить</a>
+    </div>
+    <?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($item['description'], '<table><img><ul><li><object><div>')))) { ?>
+      <div><?php echo preg_replace('~<img(.*?)src="(.*?)"~', '\\0 data-picture="\\2"', $item['description']); ?></div>
+    <?php } ?>
+    <p><a href="<?php echo $this->menuPath; ?>catalog/<?php echo $part['id']; ?>-<?php echo $part['href']; ?>" title="Все позиции &quot;<?php echo $part['name']; ?>&quot;">Все позиции "<?php echo $part['name']; ?>"</a></p>
+  </div>
+</div>

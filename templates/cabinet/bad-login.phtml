@@ -1,0 +1,52 @@
+<?php $isAjax = Site::GetParms( 'isAjax' ); ?>
+<div class="<?php echo ( $isAjax ? ' popup-dialog-wrapper ' : ' form-dialog-wrapper ' ); ?>">
+  <?php if( $isAjax ) { ?>
+    <h1>Авторизация</h1>
+  <?php } ?>
+
+  <?php if ($text) echo "<p>".nl2br($text)."</p><br />"; ?>
+
+  <?php if( !empty( $errorInfo['error'] ) ) { ?>
+    <p class="alert"><?php echo $errorInfo['error']; ?></p>
+  <?php } ?>
+
+  <?php if (Site::GetParms('social_authorization')) { ?>
+  <a href="<?php echo $AuthVK; ?>">VK</a>
+  <a href="<?php echo $AuthFB; ?>">FB</a>
+  <a href="<?php echo $AuthTW; ?>">TW</a>
+  <?php } ?>
+
+  <?php
+  $form->header();
+  if (preg_match('/^([a-z0-9\-\/]+)$/', strip_tags($_REQUEST['refer']))) echo '<input type="hidden" name="refer" value="'.strip_tags($_REQUEST['refer']).'" />';
+  ?>
+
+  <label>
+    <div class="form-name">Логин:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('logon_login', ' data-rule-email="true" data-msg-email="Укажите правильный email!" data-msg-required="Укажите email!" data-rule-required="true" tabindex="1" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <label>
+    <div class="form-name">Пароль:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('logon_passwd', ' data-rule-password="true" data-msg-password="Укажите пароль! Пароль может состоять из цифр, букв латинского алфавита и символа «_» !" data-msg-required="Укажите пароль!" data-rule-required="true" tabindex="2" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Войти</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value">
+      <a href="/forgot" title="Забыли пароль?" data-component="site/ui/registration" data-form-url="/forgot" data-submit-url="/cabinet/forgotsearch">Забыли пароль?</a><br />
+      <a href="/registration" title="Регистрация" data-component="site/ui/registration">Регистрация</a>
+    </div>
+  </label>
+  <div class="clearfix"></div>
+
+  <?php $form->footer(); ?>
+</div>

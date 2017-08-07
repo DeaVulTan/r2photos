@@ -1,0 +1,24 @@
+<?php
+$tmp = $this->table->fields['catalog_id']['parms']['items'];
+$arr1 = array(0 => array('id' => 0, 'name' => '[Все разделы]'));
+if ($tmp) $arr1 = $arr1 + $tmp;
+$tmp2 = $this->table->fields['fabrics_id']['parms']['items'];
+$arr2 = array(0 => array('id' => 0, 'name' => '[Все производители]'));
+if ($tmp2) $arr2 = $arr2 + $tmp2;
+?>
+<form name="filterForm" action="<?php echo $this->name; ?>-filter.htm" method="post">
+<input type="hidden" name="fromFF" value="1" />
+<table>
+<tr>
+ <td class="pr5">Раздел</td>
+ <td class="pr20"><?php Action::Select('catalog_id', Site::GetSession($this->name."-catalog_id"), $arr1, ' class="field"', array('field' => 'name')); ?></td>
+ <td class="pr5">Производитель: </td>
+ <td class="pr20"><?php Action::Select('fabrics_id', Site::GetSession($this->name."-fabrics_id"), $arr2, ' class="field"', array('field' => 'name')); ?></td>
+ <td class="pr5">Поиск</td>
+ <td class="pr20"><?php Action::Input('like', Site::GetSession($this->name."-like"), ' class="field" style="width: 200px;"'); ?></td>
+ <td class="pr20"><?php Action::CheckBox('is_new', Site::GetSession($this->name."-is_new")); ?> - Новинка</td>
+ <td class="pr20"><?php Action::CheckBox('is_popular', Site::GetSession($this->name."-is_popular")); ?> - Популярная</td>
+ <td><input type="image" src="image/btn-search.gif" title="Искать" alt="Искать" /></td>
+</tr>
+</table>
+</form>

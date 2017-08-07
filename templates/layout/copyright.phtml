@@ -1,0 +1,40 @@
+<div class="foot">
+  <div class="page">
+    <div class="block-group">
+      <div class="block bottom-nav">
+        <?php Utils::GetMenu( array( 'bottom' => 1 ), 'menu-bottom' ); ?>
+      </div>
+      <div class="block bottom-contact">
+        <ul class="bottom-contact">
+          <li>Контакты</li>
+          <li><?php echo implode( '</li><li>', explode( "\n", Utils::GetAddress() ) ); ?></li>
+          <li>&copy; 2014 <?php echo Utils::GetCopyright(); ?></li>
+        </ul>
+        <ul class="social" data-component="site/ui/share" data-title="<?php echo htmlspecialchars( Site::GetParms( 'titleSite' ) ); ?>">
+          <li><a href="#" class="fb" data-type="fb"></a></li>
+          <li><a href="#" class="vk" data-type="vk"></a></li>
+          <li><a href="#" class="od" data-type="od"></a></li>
+          <li><a href="#" class="tw" data-type="tw"></a></li>
+          <li><a href="#" class="gg" data-type="gplus"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/es5-shim.js"></script>
+<script src="/js/es5-sham.js"></script>
+<script>
+  var require = {
+    baseUrl: '/js/lib'
+  };
+</script>
+<script src="/js/require.js"></script>
+<script>
+  require(['../app/site'], function() {
+    require(['site/common' <?php if( Site::GetParms( 'pageId' ) == 'index' ) { echo ", 'site/main'"; } ?> ], function() { });
+  });
+</script>
+
+<?php if (IS_LOCAL !== true) echo Utils::GetValue('counters_txt'); ?>
+<?php Utils::GetLinks(); ?>

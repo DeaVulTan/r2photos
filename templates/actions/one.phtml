@@ -1,0 +1,9 @@
+<?php if( $item['picture'] ) { ?>
+  <p align="center">
+    <img src="<?php echo $item['picture']; ?>" />
+  </p>
+<?php } ?>
+
+<?php echo trim($item['text']); ?>
+
+<p><a href="<?php echo $this->menuPath; ?>actions" title="Все акции">Все акции</a></p>

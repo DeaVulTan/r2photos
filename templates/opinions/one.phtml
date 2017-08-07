@@ -1,0 +1,5 @@
+<div>
+ <div><?php echo date("d.m.y", $opinion['idate']); ?> | <?php echo $opinion['name']; ?></div>
+ <?php echo $opinion['text']; ?>
+</div>
+<p><a href="<?php echo $this->menuPath; ?>opinions" title="Все отзывы">Все отзывы</a></p>

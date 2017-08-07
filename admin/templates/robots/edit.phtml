@@ -1,0 +1,21 @@
+<h1><?php echo ($this->itemId ? 'Редактирование' : 'Добавление'); ?> robots.txt</h1>
+<div align="right" class="mb10"><a href="<?php echo Site::CreateUrl($this->name.'-listself'); ?>" title="К списку записей"><img src="image/btn-list.gif" width="120" height="22" alt="К списку записей" /></a></div>
+<?php $this->form->header(); ?>
+<div class="filterBgr pt10 pb10 pl10 pr10 mb10">
+ <table class="w100 marb10" id="gallery">
+<?php $i = 1; $size = sizeOf($this->form->fields); foreach ($this->form->fields as $k => $v) {
+   if ($v->parms['type'] == 'hidden') $this->form->field($k);
+   else {
+?>
+ <tr valign="top">
+  <td class="pr10<?php echo ($i < $size ? ' pb10' : ''); ?>" align="right"><?php echo $v->parms['name']; ?>:</td>
+  <td class="w100<?php echo ($i < $size ? ' pb10' : ''); ?>">
+   <?php echo $this->form->field($k, (!in_array(mb_strtolower(get_class($v), 'utf-8'), array('checkbox', 'radio')) ? ' class="field" ' : '').$v->parms['style']); ?>
+   <?php if (mb_strtolower(get_class($v), 'utf-8') == 'upload' && $v->parms['text'] && $v->value && file_exists(Site::GetParms('absolutePath').$v->value)) echo '<a href="../'.$v->value.'"'.(preg_match('/\.(jpg|gif|jpeg|tif|png)$/i', $v->value) ? ' rel="gal"' : '').'>смотреть '.(preg_match('/\.(jpg|gif|jpeg|tif|png)$/i', $v->value) ? 'фото' : 'файл').'</a>'; ?>
+  </td>
+ </tr>
+<?php } $i ++; } ?>
+ </table>
+</div>
+<table class="w100 mb20"><tr><td align="right"><input type="image" src="image/btn-<?php echo ($this->itemId ? 'edit' : 'add'); ?>.gif" alt="<?php echo ($this->itemId ? 'Изменить' : 'Добавить'); ?>" title="<?php echo ($this->itemId ? 'Изменить' : 'Добавить'); ?>" /></td></tr></table>
+<?php $this->form->footer(); ?>

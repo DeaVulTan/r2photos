@@ -1,0 +1,14 @@
+<?php if( $this->parms['show_map'] ) { ?>
+    </div>
+  </div>
+  <div class="maps" id="maps" data-component="site/ui/map" data-attrs="<?php echo htmlspecialchars( json_encode( array( 'center' => array( '55.753138', '37.667897' ), 'zoom' => 16, 'tooltip' => '105120, ул. Нижняя Сыромятническая д. 10, 9 строение, вход Е, 4 этаж', 'content' => '105120, ул. Нижняя Сыромятническая д. 10, 9 строение, вход Е, 4 этаж' ) ) ); ?>">maps</div>
+  <div class="page">
+    <div class="block-group">
+<?php } ?>
+
+<?php
+if ($textContent) echo $content;
+else if (sizeOf($submenus) > 0) {
+?>
+<ul><?php foreach ($submenus as $id => $item) { ?><li><a href="<?php echo $item['path'].$item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a></li><?php } ?></ul>
+<?php } ?>

@@ -1,0 +1,22 @@
+<h1>Страницы сайта (всего: <?php echo  $numOfItems; ?>)</h1>
+<table class="w100 mb10">
+<tr>
+ <td class="w100"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <td><a href="<?php echo Site::CreateUrl($this->name.'-list', $this->values); ?>" title="К списку записей"><img src="image/btn-list.gif" width="120" height="22" alt="К списку записей" /></a></td>
+</tr>
+</table>
+<table class="w100 table">
+<tr><th class="w100">Страница</th></tr>
+<?php
+   if ($numOfItems > 0) {
+      foreach ($items as $id => $item) { $class = ($class == 1 ? 2 : 1); ?>
+<tr class="td<?php echo $class; ?>"><td><?php echo $item['url']; ?></td></tr>
+<?php
+      }
+   } else {
+?>
+<tr class="td<?php echo $class; ?>"><td align="center">Нет записей</td></tr>
+<?php
+   }
+?>
+</table>

@@ -1,0 +1,25 @@
+<script type="text/javascript"><!--
+  function fnCheckLoginForm(form_name) {
+    if (!form_name.logon_login.value.match(/^([0-9a-zA-Z_\-]+)$/)) {
+      alert("Укажите логин!");
+      form_name.logon_login.focus();
+      return false;
+    }
+    if (!form_name.logon_passwd.value.match(/^([0-9a-zA-Z_\-]+)$/)) {
+      alert("Укажите пароль!");
+      form_name.logon_passwd.focus();
+      return false;
+    }
+   return true;
+  }
+//-->
+</script>
+<form method="post" name="logonForm" action="<?php echo Site::GetBaseRef(); ?>" onsubmit="return fnCheckLoginForm(this);">
+<table class="login" align="center">
+ <tr valign="top" align="left">
+  <td class="pt60 pl20 pr2" width="50%">Логин:<br /><input name="logon_login" type="text" value="" class="input" /></td>
+  <td class="pt60" width="50%">Пароль:<br /><input name="logon_passwd" type="password" value="" class="input" /></td>
+ </tr>
+ <tr valign="top"><td colspan="2" align="center" class="pt10 pb25"><input type="image" src="image/autorize-btn.gif" alt="Войти" title="Войти" class="btnAuth" /></td></tr>
+</table>
+</form>

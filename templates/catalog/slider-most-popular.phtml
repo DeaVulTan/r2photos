@@ -1,0 +1,23 @@
+<h1 class="align">Самое популярное</h1>
+<div class="slider-box" data-component="site/ui/zoom-images">
+  <div class="p-slider-prev"></div>
+  <div class="p-slider-next"></div>
+
+  <div class="popular-slider" data-component="site/ui/front/slider" data-attrs="<?php echo htmlspecialchars( json_encode( array( 'prevButton' => '.p-slider-prev', 'nextButton' => '.p-slider-next', 'autoSlide' => true, 'autoSlideTimer' => 3000 ) ) ); ?>">
+    <div class="slider">
+      <?php foreach( $itemsList as $item ) { ?>
+        <div class="slide">
+          <img data-picture="<?php echo $item['picture']; ?>" src="<?php echo $item['picture']; ?>" width="260" height="180" alt="">
+          <div class="text-wrapper">
+            <h1 class="popular-title"><?php echo htmlspecialchars( $item['name'] ); ?></h1>
+            <div class="popular-text"><?php echo $item['announce']; ?></div>
+          </div>
+          <div class="popular-summ">
+            <span><?php echo number_format( $item['price'], 0, '', '' ).' руб.'; ?></span>
+            <a href="#" class="buy" data-id="<?php echo $item['id']; ?>" data-component="site/ui/orders/do" data-count="1">Купить</a>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<?php echo ($alert ? '<p class="red">'.$alert.'</p>' : ''); ?>
+<?php $form->header(); ?>
+<table width="80%">
+ <tr>
+  <td><span class="red">*</span> Ваше имя: </td>
+  <td><?php $form->field('name', ' data-rule-regexp="^[a-zA-Zа-яА-Я0-9-].*$" data-msg-regexp="Укажите Ваше имя!"'); ?></td>
+ </tr>
+ <tr>
+  <td><span class="red">*</span> E-mail: </td>
+  <td><?php $form->field('email', ' data-rule-email="true" data-msg-email="Укажите правильный email!" data-msg-required="Укажите email!" data-rule-required="true"'); ?></td>
+ </tr>
+ <tr>
+  <td nowrap="nowrap"><span class="red">*</span> Вопрос: </td>
+  <td><?php $form->field('question', ' data-rule-regexp="^[a-zA-Zа-яА-Я0-9-](.|\n)*$" data-msg-regexp="Укажите вопрос!" rows="10" cols="100"'); ?></td>
+ </tr>
+ <tr>
+  <td><span class="red">*</span> Код: </td>
+  <td><?php $form->field('code', ' data-rule-regexp="^[0-9]+$" data-msg-regexp="Укажите код!" style="width: 50px;"'); ?></td>
+ </tr>
+ <tr><td>&nbsp;</td><td align="center"><input type="submit" value="Отправить" /></td></tr>
+</table>
+<?php $form->footer(); ?>

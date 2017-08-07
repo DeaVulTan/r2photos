@@ -1,0 +1,68 @@
+<style>
+</style>
+
+<h2><?php echo $currentItem['name_full']; ?></h2>
+<div class="certificates-list">
+    <?php foreach( $itemsList as $item ) { $href = '/certificates/'.( $item['id'] ); ?>
+        <a class="<?php if( $this->parms['id'] == $item['id'] ) { echo ' active '; } ?>" href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>">
+            <i><?php echo $item['name']; ?></i>
+            <img src="<?php echo $item['picture']; ?>" />
+        </a>
+    <?php } ?>
+</div>
+
+<div class="block">
+    <?php echo $currentItem['announce']; ?>
+</div>
+<div class="clearfix">&nbsp;</div>
+
+<div class="block wide-on-phone button-order-certificate">
+    <a class="btn red big no-padding" data-component="site/ui/registration" data-form-url="<?php echo '/certificates/'.( $currentItem['id'] ).'/order'; ?>" data-submit-url="<?php echo '/certificates/'.( $currentItem['id'] ).'/order'; ?>">
+        Оформить заявку на сертификат
+    </a>
+</div>
+<div class="clearfix">&nbsp;</div>
+
+<div class="certificate-text">
+    <h2 align="center">Все виды сертификатов</h2>
+    <p><?php echo $currentItem['text']; ?></p>
+</div>
+<div class="clearfix">&nbsp;</div>
+
+<?php if( !empty( $photosList ) ) { ?>
+    <a name="photos"></a>
+    <div class="certificate-photos" data-component="site/ui/zoom-images-colorbox">
+        <?php foreach( $photosList as $photo ) { ?>
+            <a href="<?php echo $photo['picture']; ?>" class="item" data-picture="<?php echo $photo['picture']; ?>">
+                <img src="<?php echo $photo['picture']; ?>" />
+            </a>
+        <?php } ?>
+    </div>
+    <div class="clearfix"></div>
+    <?php if( $numPages > 1 ) { ?><div class="only desktop"><?php echo Utils::GetPageNavigator( $page, $numPages, '/certificates/'.( $currentItem['id'] ).'/page/%#photos' ); ?></div><?php } ?>
+    <div class="clearfix">&nbsp;</div>
+<?php } ?>
+
+<?php if( !empty( $locationsList ) ) { ?>
+    <h2 align="center">Дополнительные локации</h2>
+    <div class="clearfix">&nbsp;</div>
+    <div class="certificate-photos" data-component="site/ui/zoom-images-colorbox" data-title="true" data-rel="true">
+        <?php foreach( $locationsList as $location ) {
+                $rel = 'location-photos-'.$location['id'];
+            ?>
+            <a href="<?php echo $location['picture']; ?>" rel="<?php echo $rel; ?>" class="item" data-picture="<?php echo $location['picture']; ?>" title="<?php echo htmlspecialchars( $location['name'].( $location['price'] > 0 ? ': +'.number_format( $location['price'], 0 ).' руб.' : '' ) ); ?>">
+                <img src="<?php echo $location['picture']; ?>" />
+                <span><?php echo $location['name']; ?></span>
+                <?php if( $location['price'] > 0 ) { ?>
+                    <span><?php echo '+'.number_format( $location['price'], 0 ).' руб.'; ?></span>
+                <?php } ?>
+            </a>
+            <div class="hidden">
+                <?php foreach( $location['_photos'] as $photo ) { ?>
+                    <a href="<?php echo $photo['picture'] ?>" rel="<?php echo $rel; ?>" title="<?php echo htmlspecialchars( $photo['name'] ); ?>"><?php echo $photo['picture']; ?></a>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
+    <div class="clearfix"></div>
+<?php } ?>

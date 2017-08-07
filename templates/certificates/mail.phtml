@@ -1,0 +1,52 @@
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial,Helvetica,clean,sans-serif; font-size: 14px; color: #000000; background-color: #ffffff;">
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Сертификат</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['certificate']['name_full']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Тип сертификата</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['certificate_type']['name']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Имя</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['fio']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Город</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['city']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" width="1%">Телефон</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['phone']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">E-mail</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['email']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Локация</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['location_list'][ $parms['location'] ]; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Как хотите получить сертификат</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['delivery_list'][ $parms['delivery'] ]; ?></td>
+ </tr>
+<?php if( !empty( $parms['delivery_address'] ) ) { ?>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Адрес доставки</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $parms['delivery_address']; ?></td>
+ </tr>
+<?php } ?>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Макияж</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo ( $parms['makeup'] ? 'Да' : 'Нет' ); ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Фотокнига</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo ( $parms['photobook'] ? 'Да' : 'Нет' ); ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Фотокартина</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo ( $parms['photopicture'] ? 'Да' : 'Нет' ); ?></td>
+ </tr>
+</table>

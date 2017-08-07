@@ -1,0 +1,78 @@
+<?php $paymentList = Orders::GetPaymentList(); ?>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial,Helvetica,clean,sans-serif; font-size: 14px; color: #000000; background-color: #ffffff;">
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">№ заказа</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $this->order['id']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Ф.И.О.</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['fio']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Телефон</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['phones']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" width="1%">E-mail</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['email']; ?></td>
+ </tr>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Код&nbsp;на&nbsp;скидку</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['code']; ?></td>
+ </tr>
+<?php /* ?>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Оплата</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $paymentList[ $_POST['payment'] ]; ?></td>
+ </tr>
+<?php */ ?>
+<?php if( $_POST['delivery_info'] ) { ?>
+   <tr>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Дата доставки</td>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['delivery_date']; ?></td>
+   </tr>
+   <tr>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Город</td>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo Utils::CheckCityByIP(); ?></td>
+   </tr>
+   <tr>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Улица</td>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['delivery_street']; ?></td>
+   </tr>
+   <tr>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Дом</td>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['delivery_building']; ?></td>
+   </tr>
+   <tr>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Квартира</td>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['delivery_flat']; ?></td>
+   </tr>
+   <tr>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Код/домофон</td>
+    <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $_POST['delivery_code']; ?></td>
+   </tr>
+<?php } ?>
+ <?php if ($_POST['info']) { ?>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" nowrap="nowrap">Дополнительная информация по доставке</td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo nl2br($_POST['info']); ?></td>
+ </tr>
+ <?php } ?>
+</table>
+<h2 style="color: #000; font-size: 16px; margin: 0 0 10px 0; font-weight: normal;">Заказаны товары</h2>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial,Helvetica,clean,sans-serif; font-size: 14px; color: #000000; background-color: #ffffff;">
+<tr>
+ <th style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">№</th>
+ <th style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" width="100%">Наименование</th>
+ <th style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;">Кол-во</th>
+</tr>
+<?php
+   $ind = 1;
+   foreach ($this->items as $id => $arr) { ?>
+ <tr>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" align="center"><?php echo $ind ++; ?></td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;"><?php echo $arr['name']; ?></td>
+  <td style="background: #ffffff; border: 1px solid #D4D4D4; padding: 3px 5px;" align="right"><?php echo $arr['count']; ?></td>
+ </tr>
+<?php } ?>
+</table>

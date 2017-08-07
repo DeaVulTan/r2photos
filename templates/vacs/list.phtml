@@ -1,0 +1,15 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+<?php if (sizeOf($vacs) > 0) { ?>
+<table width="100%">
+ <tr>
+  <th>№</th>
+  <th width="100%">Вакансия</th>
+ </tr>
+<?php foreach ($vacs as $id => $item) { ?>
+ <tr class="td<?php echo ($class = ($class == 1 ? 2 : 1)); ?>">
+  <td align="center"><?php echo ++$i; ?></td>
+  <td><a href="<?php echo $this->menuPath; ?>vacancies/<?php echo $id; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a></td>
+ </tr>
+<?php } ?>
+</table>
+<?php } else echo '<p>Вакансий нет.</p>'; ?>

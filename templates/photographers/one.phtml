@@ -1,0 +1,79 @@
+<div class="block coll-4 coll-tablet first">
+  <form class="filter" action="/photographers" data-component="site/ui/catalog/filter">
+    <input type="hidden" name="catalog_id" value="<?php echo ( int ) $_REQUEST['catalog_id']; ?>" />
+    <a class="h1">Подобрать фотосессию</a>
+    <?php foreach( $this->catalogList as $part ) { $isCurrentPart = ( in_array( $part['id'], explode( ',', $itemsParms['catalog_in'] ) ) || $part['id'] == $parms['catalog_id'] ); ?>
+      <a class="h1 js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $part['id']; ?>" href="<?php echo $this->catalogEngine->MakeUrl( array( 'url' => 'photographers', 'catalog_id' => $part['id'] ) ); ?>" title="<?php echo htmlspecialchars( $part['name'] ); ?>"><?php echo $part['name']; ?></a>
+      <?php if( !empty( $part['subparts'] ) ) { ?>
+        <ul>
+          <?php foreach( $part['subparts'] as $subpart ) { $isCurrentPart = ( $subpart['id'] == $this->parms['catalog_id'] ); ?>
+            <li>
+              <a class="js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $subpart['id']; ?>" href="<?php echo $this->catalogEngine->MakeUrl( array( 'url' => 'photographers', 'catalog_id' => $subpart['id'] ) ); ?>" title="<?php echo htmlspecialchars( $subpart['name'] ); ?>"><?php echo $subpart['name']; ?></a>
+            </li>
+          <?php } ?>
+        </ul>
+      <?php } ?>
+    <?php } ?>
+    <h1>Цена</h1>
+    <div class="amount js-price" data-price-min="<?php echo number_format( $priceLimit['min'], 0, '.', '' ); ?>" data-price-max="<?php echo number_format( $priceLimit['max'], 0, '.', '' ); ?>" data-component="site/ui/catalog/slider-price">
+      <div class="block amount-box">
+        <span>от</span>
+        <input type="text" name="price_min" value="<?php echo number_format( max( $itemsParms['price_min'], $priceLimit['min'] ), 0, '', ' ' ); ?>">
+      </div>
+      <div class="block amount-box">
+        <span>до</span> 
+        <input type="text" name="price_max" value="<?php echo number_format( $itemsParms['price_max'] ? $itemsParms['price_max'] : $priceLimit['max'], 0, '', ' ' ); ?>">
+      </div>
+      <div class="clearfix"></div>
+      <div class="js-price-slider slider-price"></div>
+      <div class="block range-min"><?php echo number_format( $priceLimit['min'], 0, '.', ' ' ); ?></div>
+      <div class="block range-max"><?php echo number_format( $priceLimit['max'], 0, '.', ' ' ); ?></div>
+    </div>
+  </form>
+</div>
+
+<div class="block coll-8 coll-tablet">
+  <h1 class="work-h1"><?php echo $item['name']; ?></h1>
+  <p style="margin-top: 15px;"><?php echo $item['text']; ?></p>
+  
+  <div class="block coll-4-small foto-author first">
+    <div class="img-box">
+      <img src="<?php echo '/thumbs/360x240/'.( $item['picture'] ); ?>" width="360" height="249" alt="">
+    </div>
+
+    <div>
+      <p class="btn red" data-component="site/ui/callback" data-submit-url="<?php echo '/ordersphotographer/'.( $item['id'] ); ?>">Заказать фотосессию у фотографа</p>
+    </div>
+  </div>
+  <div class="block coll-4-small foto-services-section">
+    <?php foreach( $worksList as $work ) { ?>
+      <div class="foto-services">
+        <div class="foto-services-box">
+          <h1><?php echo $work['name']; ?></h1>
+          <p><?php echo $work['description']; ?></p>
+        </div>
+      </div>
+    <?php } ?>
+  </div>
+
+  <?php if( !empty( $photosList ) ) { ?>
+    <div class="block m-hide" style="margin-top: 30px;">
+      <?php if( $numPages > 1 ) { ?><?php echo Utils::GetPageNavigator( $page, $numPages, '/photographers/'.( $item['id'] ).'/page/%' ); ?><?php } ?>
+      <h3>Примеры работ</h3>
+    </div>
+    
+    <div class="block portfolio" data-component="site/ui/zoom-images">
+      <?php $num = 0; foreach( $photosList as $photo ) { ?>
+        <div class="block coll-4-small <?php if( $num % 2 == 0 ) { echo ' first '; } ?> ">
+          <div class="img-box">
+            <img src="<?php echo '/thumbs/360x1440x100/'.( $photo['picture_small'] ); ?>" data-picture="<?php echo $photo['picture_big']; ?>" width="360" height="217" alt="">
+          </div>
+        </div>
+      <?php ++$num; } ?>
+    </div>
+  <?php } ?>
+
+  <div class="block">
+    <?php if( $numPages > 1 ) { ?><?php echo Utils::GetPageNavigator( $page, $numPages, '/photographers/'.( $item['id'] ).'/page/%' ); ?><?php } ?>
+  </div>
+</div>

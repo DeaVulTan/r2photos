@@ -1,0 +1,41 @@
+<h1><?php echo ($this->itemId ? 'Редактирование' : 'Добавление'); ?> рассылки</h1>
+<div class="filterBgr pt5 pb5 pl10 pr10 mb10"><?php include(Site::GetTemplate($this->name, 'filter-dates')); ?></div>
+<div align="right" class="mb10"><a href="<?php echo Site::CreateUrl($this->name.'-list', $this->values); ?>" title="К списку записей"><img src="image/btn-list.gif" width="120" height="22" alt="К списку записей" /></a></div>
+
+<?php $this->form->header(); ?>
+<table class="table w100 mb10">
+<tr class="td2">
+ <td>Тема:</td>
+ <td class="w100"><?php $this->form->field('theme', ' class="field" style="width: 99%;"'); ?></td>
+</tr>
+<tr class="td2">
+ <td>Адреса тестовой рассылки (через запятую):</td>
+ <td class="w100"><?php $this->form->field('test_emails', ' class="field" style="width: 99%;"'); ?></td>
+</tr>
+<tr class="td2">
+ <td>Текст:</td>
+ <td class="w100"><?php $this->form->field('text_custom', ' class="field" style="width: 99%;"'); ?></td>
+</tr>
+</table>
+<?php if (sizeOf($this->parms['newsAll']) > 0) { ?>
+<h2>Новости</h2>
+<table class="table w100 mb10">
+ <tr>
+  <th>Участие</th>
+  <th class="w100">Новость</th>
+  <th>Рассылка</th>
+ </tr>
+ <?php foreach ($this->parms['newsAll'] as $idN => $itemN) { ?>
+ <tr>
+  <td align="center"><input type="checkbox" name="news[<?php echo $idN; ?>]" value="1"<?php echo (in_array($idN, $this->parms['news']) ? ' checked' : ''); ?> /></td>
+  <td>
+   <?php echo date("d.m.Y", $itemN['idate']); ?> | <strong><?php echo $itemN['name']; ?></strong><br />
+   <?php echo $itemN['announce']; ?>
+  </td>
+  <td align="center" nowrap="nowrap"><?php echo ($itemN['idate_send'] ? date("d.m.Y H:i", $itemN['idate_send']) : 'Не рассылалась'); ?></td>
+ </tr>
+ <?php } ?>
+</table>
+<?php } ?>
+<table class="w100 mb20"><tr><td align="right"><input type="image" src="image/btn-<?php echo ($this->itemId ? 'edit' : 'add'); ?>.gif" alt="<?php echo ($this->itemId ? 'Изменить' : 'Добавить'); ?>" title="<?php echo ($this->itemId ? 'Изменить' : 'Добавить'); ?>" /></td></tr></table>
+<?php $this->form->footer(); ?>

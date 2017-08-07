@@ -1,0 +1,96 @@
+<?php
+Utils::MetaInit();
+//$banners = Utils::BannersInit(array(1));
+$content = Utils::GetTextOnMainPage();
+?>
+<!DOCTYPE html>
+<html<?php echo defined("LANG") ? ' lang="'.LANG.'"' : '' ?>>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title><?php echo Site::GetParms('titleSite'); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars(Site::GetParms('descriptionSite')); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars(Site::GetParms('keywordsSite')); ?>">
+    <base href="<?php echo Site::GetBaseRef(); ?>">
+    <link href="favicon.ico" type="/image/x-icon" rel="shortcut icon">
+    <link href="/css/site.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <?php include( Site::GetTemplate( 'layout', 'top' ) ); ?>
+      <?php Utils::GetSlider(); ?>
+
+      <div class="phone-banner"></div>
+
+      <div class="box">
+        <div class="page">
+          <div class="block-group">
+            <div class="block">
+              <?php Utils::GetMenu( array( 'slider' => 1 ), 'menu-slider' ); ?>
+              <?php Utils::GetPhotosPortfolioOnMain( array( 'slider' => 1 ), 'menu-slider' ); ?>
+			<?php Utils::GetCertOnMain();?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="popular">
+        <div class="page">
+          <div class="block-group">
+            <div class="block">
+              <?php Utils::GetMostPopularItems(); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="page">
+          <div class="block-group">
+            <div class="block">
+              <?php Utils::GetActions(); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="block-group">
+
+          <!--div class="block">
+            <?php// Utils::GetNewsOnMainPage(); ?>
+			<?php //Utils::GetCertOnMain();?>
+          </div-->
+
+          <div class="block">
+            <?php Utils::GetPhotographersOnMainPage(); ?>
+          </div>
+
+          <div class="block company">
+            <div class="block">
+              <h1 class="align">
+                О фотостудии
+                <span class="decor"></span>
+              </h1>
+              <p class="align"><?php echo $content; ?></p>
+              <p class="align"><a href="/about" class="btn">Подробнее</a></p>
+            </div>
+            <div class="block">
+              <div class="company-form" data-component="site/ui/forms/contacts">
+                <?php Utils::GetMailForm(); ?>
+              </div>
+            </div>
+          </div>
+
+          <div class="block">
+            <?php Utils::GetPartnersOnMainPage(); ?>
+          </div>
+        </div>
+      </div>
+
+      <div class="fixed"></div>
+    </div>
+
+    <?php include( Site::GetTemplate( 'layout', 'copyright' ) ); ?>
+  </body>
+</html>

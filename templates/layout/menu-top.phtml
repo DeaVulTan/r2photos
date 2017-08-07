@@ -1,0 +1,16 @@
+<ul class="nav">
+  <?php $num = 0; $count = count( $menus ); foreach( $menus as $menu ) { ?>
+    <li class="<?php echo ( $num === 0 ? ' first ' : ( $num === $count - 1 ? ' last ' : '' ) ); if( Utils::IsActiveMenu( $menu['href'] ) ) { echo ' active '; } ?>">
+        <a href="<?php echo $menu['href']; ?>" title="<?php echo htmlspecialchars( $menu['name'] ); ?>"><?php echo $menu['name']; ?></a>
+        <?php if( !empty( $menu['submenu'] ) ) { ?>
+            <div class="nav-sub">
+                <div class="wrapper">
+                    <?php foreach( $menu['submenu'] as $subMenu ) { ?>
+                        <a class="<?php if( Utils::IsActiveMenu( $subMenu['href'] ) ) { echo ' active '; } ?>" href="<?php echo $subMenu['href']; ?>" title="<?php echo htmlspecialchars( $subMenu['name'] ); ?>"><?php echo htmlspecialchars( $subMenu['name'] ); ?></a>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+    </li>
+  <?php ++$num; } ?>
+</ul>

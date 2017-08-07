@@ -1,0 +1,20 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php $form->header(); ?>
+<input type="hidden" name="forum_id" value="<?php echo $this->parms['topic']; ?>" />
+<table class="table w100">
+ <tr class="td2" align="center">
+  <td colspan="2"><strong><a href="forum.htm" title="Форум">Форум</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="cat_<?php echo $forum['cat_id']; ?>.htm" title="<?php echo htmlspecialchars($cat['title']); ?>"><?php echo $cat['title']; ?></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo $forum['name']; ?></strong></td>
+ </tr>
+ <tr valign="top">
+  <td class="td2">Тема:</td>
+  <td class="w100 td1"><?php $form->field('title', ' class="input w100"'); ?><br /></td>
+ </tr>
+ <tr valign="top">
+  <td class="td2">Cообщение:</td>
+  <td class="td1"><?php $form->field('text', ' class="input w100" rows="10" cols="100"'); ?></td>
+ </tr>
+ <tr class="td2">
+  <td colspan="2" align="center"><input type="submit" value="Отправить" /></td>
+ </tr>
+</table>
+<?php $form->footer(); ?>

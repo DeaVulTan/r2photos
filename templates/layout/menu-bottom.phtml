@@ -1,0 +1,8 @@
+<?php $num = 0; foreach( $menus as $menu ) { ?>
+  <ul class="bottom-nav <?php if( $num % 2 == 0 ) { echo ' first '; } ?> ">
+    <li><?php echo $menu['name']; ?></li>
+    <?php foreach( $menu['submenu'] as $subMenu ) { ?>
+      <li><a href="<?php echo $subMenu['href']; ?>" title="<?php echo htmlspecialchars( $subMenu['name'] ); ?>"><?php echo $subMenu['name']; ?></a></li>
+    <?php } ?>
+  </ul>
+<?php ++$num; } ?>

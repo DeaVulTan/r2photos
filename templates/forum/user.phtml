@@ -1,0 +1,31 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<table class="table w100">
+<tr class="td1">
+ <td width="25%">Ник</td>
+ <td><?php echo $user["nikname"] ?></td>
+</tr>
+<tr class="td2">
+ <td>Сообщения: </td>
+ <td><?php echo $user['posts']; ?></td>
+</tr>
+<tr class="td1">
+ <td>E-mail</td>
+ <td><a href="usermail_<?php echo $user["password"]; ?>.htm">Послать сообщение</a></td>
+</tr>
+<tr class="td1">
+ <td>Дата регистрации</td>
+ <td><?php echo date("d.m.Y",$user["idate"]); ?></td>
+</tr>
+<tr class="td2">
+ <td>Аватар</td>
+ <td><?php if ($user["avatar"] && file_exists(Site::GetParms('absolutePath').$user["avatar"])) { $iwh = getImageSize(Site::GetParms('absolutePath').$user["avatar"]); ?><img src="<?php echo $user['avatar']; ?>" <?php echo $iwh[3]; ?> alt="<?php echo htmlspecialchars($user['nikname']); ?>" /><?php } else echo '&nbsp;'; ?></td>
+</tr>
+<tr class="td1">
+ <td>Подпись: </td>
+ <td class="small"><?php echo $user["sig"]; ?></td>
+</tr>
+<tr class="td2">
+ <td>Темы: </td>
+ <td><?php echo "<a href=\"users_topics_".$user['id'].".htm\" title=\"Просмотреть все темы пользователя\">Просмотреть все темы пользователя</a> [".$topics_count."]"; ?></td>
+</tr>
+</table>

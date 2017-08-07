@@ -1,0 +1,18 @@
+<?php if ($vote['id'] > 0) { ?>
+<table>
+ <form name="votesForm<?php echo $vote['id']; ?>" action="<?php echo $this->menuPath.$this->name; ?>/do" method="post">
+ <input type="hidden" name="votesId" value="<?php echo $vote['id']; ?>" />
+ <tr><td colspan="2"><strong><?php echo $vote['question']; ?></strong><br /><br /></td></tr>
+ <?php if (sizeOf($vars) > 0) foreach ($vars as $var) { ?>
+ <tr valign="top">
+  <td><?php if ($vote['is_checkbox']) { ?><input type="checkbox" name="votesResult[<?php echo $var['id']; ?>]" value="1" /><?php } else { ?><input type="radio" name="votesResult[<?php echo $vote['id']; ?>]" value="<?php echo $var['id']; ?>" /><?php } ?></td>
+  <td width="99%"><?php echo $var['variant']; ?></td>
+ </tr>
+ <?php } ?>
+ <tr>
+  <td>&nbsp;</td>
+  <td><?php if ($isIP || !$vote['is_active']) { ?><input type="button" value="Результаты" onClick="document.location.href='<?php echo $this->menuPath.$this->name; ?>/<?php echo $vote['id']; ?>-<?php echo $item['href']; ?>';" /><?php } else { ?><input type="submit" value="Проголосовать" /><?php } ?></td>
+ </tr>
+ </form>
+</table>
+<?php } else echo "<p>Опросов нет.</p>"; ?>

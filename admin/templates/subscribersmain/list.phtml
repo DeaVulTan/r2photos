@@ -1,0 +1,76 @@
+<h1>Рассылка (<?php echo  $numOfItems; ?>)</h1>
+<div class="filterBgr pt5 pb5 pl10 pr10 mb10"><?php include(Site::GetParms('absolutePath').'admin/templates/'.$this->name.'/filter.phtml'); ?></div>
+<form name="<?php echo $this->name; ?>Form" action="<?php echo Site::CreateUrl($this->name.'-changelist', $this->values); ?>" method="post">
+<table class="w100 mb10">
+<tr>
+ <td class="w100"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <td class="pl10"><a href="<?php echo Site::CreateUrl($this->name.'-editself', array(0, $this->values)); ?>" title="Добавить"><img src="image/btn-add.gif" width="79" height="22" alt="Добавить" /></a></td>
+</tr>
+</table>
+<table class="table w100 mb10">
+<tr>
+ <th>Дата рассылки</td>
+ <th style="width:30%;">Тема</td>
+ <th>Состав рассылки</th>
+ <th>Формирование письма</th>
+ <th>Предварительный просмотр</th>
+ <th>Тестовая рассылка</th>
+ <th>Рассылка</th>
+ <? if (true) { ?>
+ <th><a href="#" onclick="fnCheckBox(document.<?php echo $this->name; ?>Form, 'deletedItem'); return false;" title="Выбрать/отменить все">Удалить</a></th>
+ <? } ?>
+</tr>
+<?php
+   if ($numOfItems > 0) {
+      foreach ($items as $id => $item) {
+      $class = ($class == 1 ? 2 : 1);
+?>
+<input type="hidden" name="itemIds[<?php echo $item['id']; ?>]" value="1" />
+<tr class="td<?php echo $class; ?>">
+ <td><?php echo ($item['idate_send'] ? date("d.m.Y H:i", $item['idate_send']) : 'Рассылка не производилась'); ?></td>
+ <td><?php echo $item['theme']; ?></td>
+ <?php if (!$item['is_send']) { ?>
+ <td align="center">
+    <? if (true) { ?>
+    <a href="<?php echo Site::CreateUrl($this->name.'-editself', array($item['id'])); ?>">редактировать</a>
+    <? } else echo 'Нет прав'; ?>
+ </td>
+ <td align="center">
+ <? if (true) { ?>
+ <a href="<?php echo Site::CreateUrl($this->name.'-create', array($item['id'])); ?>"><?php echo ($item['text'] ? 'пере' : 'с'); ?>формировать письмо</a>
+ <? } else echo 'Нет прав'; ?>
+ </td>
+ <td align="center"><?php if ($item['text']) { ?><a href="<?php echo Site::CreateUrl($this->name.'-view', array($item['id'])); ?>" onClick="window.open('<?php echo Site::CreateUrl($this->name.'-view', array($item['id'])); ?>', '_blank', 'directories=no,location=no,menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no'); return false;">смотреть</a><?php } else echo "Письмо не сфомировано" ?></td>
+ <td align="center">
+ <? if (true) { ?>
+ <?php if ($item['text']) { ?><a href="<?php echo Site::CreateUrl($this->name.'-sendtest', array($item['id'])); ?>">послать</a><?php } else echo "Письмо не сфомировано" ?>
+ <? } else echo 'Нет прав'; ?>
+ </td>
+ <td align="center">
+ <? if (true) { ?>
+ <?php if ($item['text']) { ?><a href="<?php echo Site::CreateUrl($this->name.'-sendall', array($item['id'])); ?>">разослать всем</a><?php } else echo "Письмо не сфомировано" ?>
+ <? } else echo 'Нет прав'; ?>
+ </td>
+ <?php } else { ?>
+ <td align="center" colspan="5">Производится рассылка</td>
+ <?php } ?>
+ <? if (true) { ?>
+ <td align="center"><?php Action::CheckBox('deletedItem['.$item['id'].']'); ?></td>
+ <? } ?>
+</tr>
+<?php
+      }
+   } else {
+?>
+<tr><td colspan="9" align="center">Нет записей</td></tr>
+<?php
+   }
+?>
+</table>
+<table class="w100"><tr>
+ <td class="w100"><?php echo ($numPages > 1 ? $pageNavigator : '&nbsp;'); ?></td>
+ <?php if (true) { ?>
+ <td class="pl10"><input type="image" src="image/btn-del.gif" alt="Удалить выделенные строки" title="Удалить выделенные строки" name="_del" onclick="return onDelete();" /></td>
+ <?php } ?>
+</tr></table>
+</form>

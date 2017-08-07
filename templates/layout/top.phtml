@@ -1,0 +1,88 @@
+<?php
+    $city = Site::GetParms( 'city-by-ip' );
+    $cityList = Utils::GetCityList();
+?>
+
+<div class="top-panel" data-component="site/ui/top-panel">
+    <div class="top-panel-wrapper">
+        <a href="/orderstate" class="btn-top-1"><span>Статус <br />готовности заказа</span></a>
+        <a href="#" class="btn-top-2" data-component="site/ui/registration" data-form-url="/activation" data-submit-url="/activation/send">Активация подарка</a>
+    </div>
+</div>
+
+<div class="js-popup-container popup-container"></div>
+<div class="page">
+  <div class="block-group">
+    <div class="block">
+      <div class="logo">
+        <a <?php if( Site::GetParms( 'pageId' ) !== 'index' ) { echo ' href="/" '; } ?> title="R2 photos" ><img src="/image/logo.png" width="147" height="147" alt=""></a>
+      </div>
+      <div class="top-box-1 m-hide">
+       <?/* <div class="city m-hide" data-component="site/ui/city-select"> не удаляем пока на всякий случай
+          Ваш город <span class="name"><?php echo $city; ?></span>
+          <div class="js-city-select city-select-wrapper">
+            <div class="js-list">
+                <?php foreach( $cityList as $name ) { ?>
+                    <div class="<?php echo ( $name === $city ? ' disabled ' : '' ); ?>" data-name="<?php echo htmlspecialchars( $name ); ?>"><?php echo $name; ?></div>
+                <?php } ?>
+            </div>
+          </div>
+        </div>*/?>
+        <div class="phone">
+          <?php echo implode( "\n", Utils::GetPhonesList() ); ?>
+        </div>
+      </div>
+      <div class="top-box-2">
+        <div class="phone d-hide t-hide m-show">
+          <?php echo implode( "\n", Utils::GetPhonesList('<br>') ); ?>
+        </div>
+        <div class="city d-hide t-hide" data-component="site/ui/city-select">
+          Ваш город <span><?php echo $city; ?></span>
+          <div class="js-city-select city-select-wrapper"></div>
+        </div>
+        <a href="#" class="callback" data-component="site/ui/callback" data-submit-url="callback">Заказать звонок</a>
+        <a href="/informatciia/kontakty" class="top-contact"  >Контакты</a>
+      </div>
+      <div class="top-box-3">
+        <a href="/orders" class="basket js-basket-content">
+          <?php echo Utils::GetBasketInfo(); ?>
+        </a>
+          <a href="/photos" class="sing-in">Фотографии клиентов</a>
+
+        <?php
+        // по требованию клиента скрыли ссылки Логин и Регистрация,
+        // вместо них поставили ссылку на внутрен страницу
+
+        /*if( UID > 0 ) { ?>
+          <a href="/cabinet" class="sing-up">Личный кабинет</a>
+          <a href="/logout" class="sing-in">Выйти</a>
+        <?php } else { ?>
+          <a href="/registration" class="sing-up" data-component="site/ui/registration">Зарегистрироваться</a>
+          <a href="/login" class="sing-in" data-component="site/ui/registration" data-form-url="/login" data-submit-url="/cabinet">Войти</a>
+        <?php } */ ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-box">
+  <div class="page">
+    <div class="block-group">
+      <div class="block ">
+        <?php Utils::GetMenu( array( 'top' => 1 ), 'menu-top' ); ?>
+      </div>
+<?php
+/*
+ * Это шаблон блока строки поиска в меню. Был отключен по желанию клиента
+ *
+      <div class="block coll-2">
+        <form class="search" action="/search" method="get">
+          <input type="text" placeholder="Поиск по сайту" name="search">
+          <input type="submit" value="Отправить">
+        </form>
+      </div>
+*/
+?>
+    </div>
+  </div>
+</div>

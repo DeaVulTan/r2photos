@@ -1,0 +1,5 @@
+<div class="navForum">
+<a href="forum.htm" title="Форум">Форум</a> |
+<a href="users_list.htm" title="Список пользователей">Пользователи</a>
+<?php if (defined("UID") && UID > 0) { ?>| <a href="users_profile_<?php echo UID; ?>.htm" title="Ваш профиль">Профиль</a><?php } ?>
+</div><br />

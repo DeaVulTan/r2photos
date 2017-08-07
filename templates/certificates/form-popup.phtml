@@ -1,0 +1,80 @@
+<?php $city = Utils::CheckCityByIP(); ?>
+<div class="popup-dialog-wrapper photographer">
+  <h1>Оформить заявку на сертификат</h1>
+  <?php $form->header(); ?>
+  <?php echo $alert ? '<span class="alert">'.$alert.'</span>' : ''; ?>
+  <input type="hidden" name="certificate_id" value="<?php echo $certificateId; ?>" />
+  <label>
+    <div class="form-name">Имя:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('fio', 'data-rule-regexp="[a-zA-Zа-яА-Я]+" data-msg-regexp="Укажите Ваше имя!"'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">E-mail:</div>
+    <div class="form-value"><?php $form->field('email'); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Город:</div>
+    <div class="form-value"><?php echo $city; ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Телефон:<span class="required">*</span></div>
+    <div class="form-value"><?php $form->field('phone', ' data-rule-regexp="[0-9]{3,}" data-msg-regexp="Укажите Ваш контактный телефон!" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Тип сертификата:</div>
+    <div class="form-value">
+        <?php $form->field('certificate_type_id', ' class="btn-select" '); ?>
+    </div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">Как хотите получить сертификат:</div>
+    <div class="form-value">
+        <?php $form->field('delivery', ' class="btn-select" '); ?>
+    </div>
+  </label>
+  <div class="clearfix"></div>
+  <div class="delivery" data-id="2" style="display: <?php echo ( $form->get('delivery') == 2 ? 'block' : 'none' ); ?>;">
+      <label>
+        <div class="form-name">Адрес доставки:<span class="required">*</span></div>
+        <div class="form-value"><?php $form->field('delivery_address'); ?></div>
+      </label>
+      <div class="clearfix"></div>
+  </div>
+  <h2>Дополнительные возможности</h2>
+  <label>
+    <div class="form-name">Доп. локация:</div>
+    <div class="form-value"><?php $form->field('location', ' class="btn-select" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><?php $form->field('makeup'); ?>&nbsp;&nbsp;Макияж и укладка</div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><?php $form->field('photobook'); ?>&nbsp;&nbsp;Фотокнига</div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><?php $form->field('photopicture'); ?>&nbsp;&nbsp;Фотокартина</div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name colored">Код на скидку:</div>
+    <div class="form-value colored"><?php $form->field('code', ' maxlength=10 style="width: 90px;" '); ?></div>
+  </label>
+  <div class="clearfix"></div>
+  <label>
+    <div class="form-name">&nbsp;</div>
+    <div class="form-value"><button type="submit" class="btn wide" type="submit"><span>Отправить</span></button></div>
+  </label>
+  <div class="clearfix"></div>
+  <?php $form->footer(); ?>
+</div>

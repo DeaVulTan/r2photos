@@ -1,0 +1,64 @@
+<?php if (!$str) { ?>
+Укажите поисковый запрос!
+<?php
+}
+else {
+   if ($true) {
+?>
+
+<?php if( !empty( $catalogItems ) || !empty( $catalogs ) ) { ?>
+<div>
+<b>В каталоге:</b>
+ <ul>
+  <?php foreach( $catalogItems as $item ) { $href = ( isset( $itemsParts[ $item['catalog_id'] ] ) ? $item['catalog_id'].'-'.$itemsParts[ $item['catalog_id'] ]['href'] : '/catalog' ); ?>
+    <li>
+      <a href="<?php echo '/catalog/'.$href; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a><br />
+      <?php echo Utils::LightSearch($item['description']); ?>
+    </li>
+  <?php } ?>
+  <?php foreach( $catalogs as $item ) { ?>
+    <li>
+      <a href="<?php echo '/catalog/'.$item['id'].'-'.$item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a><br />
+      <?php echo Utils::LightSearch($item['description']); ?>
+    </li>
+  <?php } ?>
+ </ul>
+</div>
+<br />
+<?php } ?>
+
+<?php if (sizeOf($pages) > 0) { ?>
+<div>
+<b>На страницах сайта:</b>
+<?php if (sizeOf($pages) > 0) { ?>
+ <ul>
+ <?php foreach ($pages as $page) { ?>
+  <li>
+   <a href="<?php echo $page['path'].$page['href']; ?>" title="<?php echo htmlspecialchars($page['name']); ?>"><?php echo $page['name']; ?></a><br />
+   <?php echo Utils::LightSearch($page['content']); ?>
+  </li>
+ <?php } ?>
+ </ul>
+<?php } ?>
+</div>
+<br />
+<?php } ?>
+
+<?php if (sizeOf($news) > 0) { ?>
+<div>
+ <b>В новостях:</b>
+ <ul><?php foreach ($news as $new) { ?><li><a href="<?php echo $newsMenuPath; ?>news/<?php echo $new['id']; ?>-<?php echo $new['href']; ?>" title="<?php echo htmlspecialchars($new['name']); ?>"><?php echo $new['name']; ?></a><br /><?php echo Utils::LightSearch($new['text']); ?></li><?php } ?></ul>
+</div>
+<br />
+<?php } ?>
+
+<?php if (sizeOf($articles) > 0) { ?>
+<div>
+ <b>В статьях:</b>
+ <ul><?php foreach ($articles as $article) { ?><li><a href="<?php echo $articlesMenuPath; ?>articles/<?php echo $article['id']; ?>-<?php echo $article['href']; ?>" title="<?php echo htmlspecialchars($article['name']); ?>"><?php echo $article['name']; ?></a><br /><?php echo Utils::LightSearch($article['text']); ?></li><?php } ?></ul>
+</div>
+<br />
+<?php } ?>
+
+<?php } else echo "По запросу \"<b>".$str."</b>\" ничего не найдено!"; ?>
+<?php } ?>

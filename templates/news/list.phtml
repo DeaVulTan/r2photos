@@ -1,0 +1,50 @@
+<?php if (trim(preg_replace('/&nbsp;/', ' ', strip_tags($this->menu['content'], '<table><img><ul><li><object><div>')))) echo $this->menu['content']; ?>
+
+<div class="block coll-4 coll-tablet first">
+  <?php echo $calendar; ?>
+
+  <form action="/subscribers/do" method="post" class="responder" data-component="site/ui/forms/subscribe">
+    <label for="responder">Подписаться на новости и акции</label>
+    <span>
+      <input type="text" id="responder" name="email">
+      <input type="submit" value="Отправить">
+    </span>
+    <div class="alert"></div>
+  </form>
+</div>
+
+<div class="block coll-8 coll-tablet">
+  <?php if( $numPages > 1 ) { ?><div class="only desktop"><?php echo Utils::GetPageNavigator( $page, $numPages, $this->menuPath.'news/page/%' ); ?></div><?php } ?>
+  <?php if( $numPagesTablet > 1 ) { ?><div class="only tablet"><?php echo Utils::GetPageNavigator( $page, $numPagesTablet, $this->menuPath.'news/page/%' ); ?></div><?php } ?>
+  <?php if( $numPagesPhone > 1 ) { ?><div class="only phone"><?php echo Utils::GetPageNavigator( $page, $numPagesPhone, $this->menuPath.'news/page/%' ); ?></div><?php } ?>
+  <h1 class="work-h1">Новости</h1>
+  <?php if( empty( $news ) ) { ?><div class="only desktop"><br />Новостей нет</div><?php } ?>
+  <?php if( empty( $newsTablet ) ) { ?><div class="only tablet"><br />Новостей нет</div><?php } ?>
+  <?php if( empty( $newsPhone ) ) { ?><div class="only phone"><br />Новостей нет</div><?php } ?>
+  <div class="work-news">
+    <div class="only desktop">
+      <?php
+        foreach( $news as $row ) {
+          include( Site::GetTemplate( $this->name, 'pos' ) );
+        }
+      ?>
+    </div>
+    <div class="only tablet">
+      <?php
+        foreach( $newsTablet as $row ) {
+          include( Site::GetTemplate( $this->name, 'pos' ) );
+        }
+      ?>
+    </div>
+    <div class="only phone">
+      <?php
+        foreach( $newsPhone as $row ) {
+          include( Site::GetTemplate( $this->name, 'pos' ) );
+        }
+      ?>
+    </div>
+    <div class="news-more news-more-work">
+      <a href="<?php echo $this->menuPath.'news'; ?>" title="Архив новостей">Архив новостей</a>
+    </div>
+  </div>
+</div>

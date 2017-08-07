@@ -1,0 +1,60 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php if (sizeOf($categories) > 0) { ?>
+<table class="table w100">
+ <tr>
+  <th width="40%" colspan="2">Форум</th>
+  <th width="15%">Модератор</th>
+  <th width="15%">Тем</th>
+  <th width="15%">Сообщений</th>
+  <th width="15%">Последнее сообщ.</th>
+ </tr>
+ <?php foreach ($categories as $id => $cat) { ?>
+ <tr><td colspan="6" class="td2"><strong><a href="cat_<?php echo $id; ?>.htm"><?php echo $cat['title']; ?></a></strong></td></tr>
+ <?php if (sizeOf($cat['forums']) > 0) foreach ($cat['forums'] as $forum) {
+   $user = Users::GetRow(array('id' => $forum['moderator']));
+   $lastPost = false;
+   if ($forum['lastpost_id']) {
+      $lastPost = Posts::GetRow(array('id' => $forum['lastpost_id']));
+      if (!$lastPost['subject']) {
+         $lastPostT = Poststext::GetRow(array('post_id' => $forum['lastpost_id']));
+         $subj = mb_substr($lastPostT['text'], 0, 20, 'utf-8').'...';
+      }
+      else $subj = $lastPost['subject'];
+      $lastUser = Users::GetRow(array('id' => $lastPost['poster_id']));
+   }
+   $isNew = Topics::GetRow(array('forum_id' => $forum['id'], 'no_views' => true));
+ ?>
+ <tr align="center" class="td1">
+  <td><img src="image/i-<?php echo ($isNew ? 'new' : 'old'); ?>.gif" width="16" height="15" alt="<?php echo ($isNew ? 'Новые сообщения' : 'Новых сообщений нет'); ?>" /></td>
+  <td align="left" width="40%">
+   <span><a href="forum_<?php echo $forum['id']; ?>.htm"><?php echo $forum['name']; ?></a></span><br />
+   <span><?php echo $forum['descr']; ?></span><br />
+  </td>
+  <td><a href="users_<?php echo $user['id']; ?>.htm"><?php echo $user['nikname']; ?></a></td>
+  <td><?php echo Categories::getCount('topics', $forum['id']); ?></td>
+  <td><?php echo Categories::getCount('posts', $forum['id']); ?></td>
+  <td class="small">
+  <?php if ($lastPost) { ?>
+  <div><?php echo date("j ".Utils::GetMonth(date("n", $lastPost['time']), 0)." Y H:i", $lastPost['time']); ?></div>
+  <table class="nonBorder">
+   <tr>
+    <td><a href='users_<?php echo $lastPost['poster_id']; ?>.htm'><?php echo $lastUser['nikname']; ?></a></td>
+    <td><a href='topic_<?php echo $lastPost['topic_id']; ?>.htm#last'><img src='image/i-read.gif' width='23' height='11' alt='Последнее сообщение' /></a></td>
+   </tr>
+  </table>
+  <?php } else echo "сообщ. нет"; ?>
+  </td>
+ </tr>
+ <?php } else { ?>
+ <tr><td colspan="6" class="td1">В этой категории не создано форумов.<br /> Создавать форумы в категориях может только администратор.</td></tr>
+ <?php } ?>
+<?php } ?>
+</table>
+<br /><br />
+<table align="center" class="small">
+ <tr>
+  <td><p class="absM"><img src="image/i-new.gif" width="16" height="15" alt="Новые сообщения" hspace="5" /><span>Новые сообщения</span></p></td>
+  <td><p class="absM"><img src="image/i-old.gif" width="16" height="15" alt="Новых сообщений нет" hspace="5" /><span>Новых сообщений нет</span></p></td>
+ </tr>
+</table>
+<?php } else echo '<p>Форум пуст.</p>'; ?>

@@ -1,0 +1,87 @@
+<div class="block coll-4 coll-tablet first filter-box-content">
+  <form class="filter" action="/catalog" data-component="site/ui/catalog/filter">
+    <input type="hidden" name="catalog_id" value="<?php echo ( int ) $_REQUEST['catalog_id']; ?>" />
+    <a class="h1">Подобрать фотосессию</a>
+    <?php foreach( $partsList as $part ) { $isCurrentPart = ( in_array( $part['id'], explode( ',', $parms['catalog_in'] ) ) || $part['id'] == $parms['catalog_id'] ); ?>
+      <a class="h1 js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $part['id']; ?>" href="<?php echo $this->MakeUrl( array( 'catalog_id' => $part['id'] ) ); ?>" title="<?php echo htmlspecialchars( $part['name'] ); ?>"><?php echo $part['name']; ?></a>
+      <?php if( !empty( $part['subparts'] ) ) { ?>
+        <ul>
+          <?php foreach( $part['subparts'] as $subpart ) { $isCurrentPart = ( $subpart['id'] == $this->parms['id'] ); ?>
+            <li>
+              <a class="js-catalog-id <?php if( $isCurrentPart ) { echo ' active '; } ?> " data-id="<?php echo $subpart['id']; ?>" href="<?php echo $this->MakeUrl( array( 'catalog_id' => $subpart['id'] ) ); ?>" title="<?php echo htmlspecialchars( $subpart['name'] ); ?>"><?php echo $subpart['name']; ?></a>
+            </li>
+          <?php } ?>
+        </ul>
+      <?php } ?>
+    <?php } ?>
+    <h1>Цена</h1>
+    <div class="amount js-price" data-price-min="<?php echo number_format( $priceLimit['min'], 0, '.', '' ); ?>" data-price-max="<?php echo number_format( $priceLimit['max'], 0, '.', '' ); ?>" data-component="site/ui/catalog/slider-price">
+      <div class="block amount-box">
+        <span>от</span>
+        <input type="text" name="price_min" value="<?php echo number_format( max( $parms['price_min'], $priceLimit['min'] ), 0, '', ' ' ); ?>">
+      </div>
+      <div class="block amount-box">
+        <span>до</span> 
+        <input type="text" name="price_max" value="<?php echo number_format( $parms['price_max'] ? $parms['price_max'] : $priceLimit['max'], 0, '', ' ' ); ?>">
+      </div>
+      <div class="clearfix"></div>
+      <div class="js-price-slider slider-price"></div>
+      <div class="block range-min"><?php echo number_format( $priceLimit['min'], 0, '.', ' ' ); ?></div>
+      <div class="block range-max"><?php echo number_format( $priceLimit['max'], 0, '.', ' ' ); ?></div>
+    </div>
+  </form>
+</div>
+
+<div class="block coll-8 coll-tablet">
+  <?php if( $numPages > 1 ) { ?><?php echo Utils::GetPageNavigator( $page, $numPages, $this->MakeUrl( array( 'page' => '%' ) + $_REQUEST ) ); ?><?php } ?>
+  <h1 class="work-h1">Фотосессии</h1>
+  
+  <div class="block catalog-section js-catalog-content" data-component="site/ui/zoom-images">
+    <?php if( empty( $itemsList ) ) { ?>
+      <p class="only desktop">Фотосессий нет</p>
+    <?php } ?>
+    <?php if( empty( $itemsListTablet ) ) { ?>
+      <p class="only tablet">Фотосессий нет</p>
+    <?php } ?>
+    <?php if( empty( $itemsListPhone ) ) { ?>
+      <p class="only phone">Фотосессий нет</p>
+    <?php } ?>
+    <div class="only desktop">
+      <?php
+        $num = 0;
+        foreach( $itemsList as $item ) {
+          include( Site::GetTemplate( $this->name, 'pos' ) );
+          ++$num;
+        }
+      ?>
+    </div>
+    <div class="only tablet">
+      <?php
+        $num = 0;
+        foreach( $itemsListTablet as $item ) {
+          include( Site::GetTemplate( $this->name, 'pos' ) );
+          ++$num;
+        }
+      ?>
+    </div>
+    <div class="only phone">
+      <?php
+        $num = 0;
+        foreach( $itemsListPhone as $item ) {
+          include( Site::GetTemplate( $this->name, 'pos' ) );
+          ++$num;
+        }
+      ?>
+    </div>
+  </div>
+  
+  <div class="block">
+    <?php if( $numPages > 1 ) { ?><div class="only desktop"><?php echo Utils::GetPageNavigator( $page, $numPages, $this->MakeUrl( array( 'page' => '%' ) + $_REQUEST ) ); ?></div><?php } ?>
+    <?php if( $numPagesTablet > 1 ) { ?><div class="only tablet"><?php echo Utils::GetPageNavigator( $page, $numPagesTablet, $this->MakeUrl( array( 'page' => '%' ) + $_REQUEST ) ); ?></div><?php } ?>
+    <?php if( $numPagesPhone > 1 ) { ?><div class="only phone"><?php echo Utils::GetPageNavigator( $page, $numPagesPhone, $this->MakeUrl( array( 'page' => '%' ) + $_REQUEST ) ); ?></div><?php } ?>
+  </div>
+
+  <div class="block">
+    <p><?php echo $text; ?></p>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="certificate-photos" data-component="site/ui/zoom-images-colorbox" data-title="true" data-rel="true">
+    <?php foreach( $itemsList as $item ) {
+            $rel = 'location-photos-'.$item['id'];
+        ?>
+        <a href="<?php echo $item['picture']; ?>" rel="<?php echo $rel; ?>" class="item" data-picture="<?php echo $item['picture']; ?>" title="<?php echo htmlspecialchars( $item['name'] ); ?>">
+            <img src="<?php echo $item['picture']; ?>" />
+            <span><?php echo $item['name']; ?></span>
+            <?php if( $item['price'] > 0 ) { ?>
+                <span><?php echo '+'.number_format( $item['price'], 0 ).' руб.'; ?></span>
+            <?php } ?>
+        </a>
+        <div class="hidden">
+            <?php foreach( $item['_photos'] as $photo ) { ?>
+                <a href="<?php echo $photo['picture'] ?>" rel="<?php echo $rel; ?>" title="<?php echo htmlspecialchars( $photo['name'] ); ?>"><?php echo $photo['picture']; ?></a>
+            <?php } ?>
+        </div>
+    <?php } ?>
+</div>
+<div class="clearfix"></div>

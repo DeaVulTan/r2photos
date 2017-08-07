@@ -1,0 +1,64 @@
+<h1>Формирование рассылки</h1>
+<div align="right" class="mb10"><a href="<?php echo Site::CreateUrl($this->name.'-list', $this->values); ?>" title="К списку записей"><img src="image/btn-list.gif" width="120" height="22" alt="К списку записей" /></a></div>
+<?php $form->header(); ?>
+<table class="table w100 mb10">
+<tr class="td2">
+ <td>Тема:</td>
+ <td class="w100"><?php $this->form->field('theme', ' class="field" style="width: 100%;"'); ?></td>
+</tr>
+</table>
+<?php if (sizeOf($this->parms['news']) > 0) { ?>
+<h2>Состав рассылки</h2>
+<table class="table w100 mb10">
+ <tr>
+  <th>Сортировка</th>
+  <th class="w100">Новость</th>
+ </tr>
+ <?php
+   $bans =& Subscribersbans::GetRows(array('subscribers_main_id' => $this->values[0], 'ord' => 0));
+   if (sizeOf($bans) > 0) foreach ($bans as $idB => $itemB) { ?>
+ <tr class="td1"><td colspan="3" align="center">
+  <?php if ($itemB['link']) { ?><a href="<?php echo $itemB['link']; ?>" target="_blank"><?php } ?><img src="../<?php echo $itemB['picture']; ?>" /><?php if ($itemB['link']) { ?></a><?php } ?>&nbsp;<a href="subscribersmain-delbaner_<?php echo $this->values[0]; ?>_<?php echo $idB; ?>.htm" title="Удалить"><img src="image/d.gif" width="16" height="16" alt="Удалить" /></a>
+ </td></tr>
+<?php } ?>
+ <?php $i = 0; $currentRubr = ''; foreach ($this->parms['news'] as $idN => $itemN) {
+   if ($currentRubr <> $rubr[$itemN['subs_type']]) {
+      $currentRubr = $rubr[$itemN['subs_type']];
+      echo '<tr class="td2"><td colspan="2"><strong>'.$currentRubr.'</strong></td></tr>';
+   }
+ ?>
+ <tr class="td1">
+  <td align="center"><input type="text" name="sort[<?php echo $idN; ?>]" value="<?php echo $itemN['ord']; ?>" class="field" size="4" /></td>
+  <td>
+   <?php if ($itemN['new']['idate']) echo date("d.m.Y", $itemN['new']['idate'])." | "; ?><strong><?php echo $itemN['new']['name']; ?></strong><br />
+   <?php echo $itemN['new']['announce']; ?>
+  </td>
+ </tr>
+ <?php
+   $i ++;
+   $bans =& Subscribersbans::GetRows(array('subscribers_main_id' => $this->values[0], 'ord' => $i));
+   if (sizeOf($bans) > 0) foreach ($bans as $idB => $itemB) { ?>
+ <tr class="td1"><td colspan="3" align="center"><?php if ($itemB['link']) { ?><a href="<?php echo $itemB['link']; ?>" target="_blank"><?php } ?><img src="../<?php echo $itemB['picture']; ?>" /><?php if ($itemB['link']) { ?></a><?php } ?>&nbsp;<a href="subscribersmain-delbaner_<?php echo $this->values[0]; ?>_<?php echo $idB; ?>.htm" title="Удалить"><img src="image/d.gif" width="16" height="16" alt="Удалить" /></a></td></tr>
+<?php } } ?>
+</table>
+<?php } ?>
+<table class="w100 mb20"><tr><td align="right"><input type="image" src="image/btn-edit.gif" alt="Изменить" title="Изменить" /></td></tr></table>
+<?php $form->footer(); ?>
+<h2>Добавить банер</h2>
+<form name="banner_add" action="subscribersmain-addbaner_<?php echo $this->values[0]; ?>.htm" method="post" enctype="multipart/form-data">
+<table class="table mb10">
+ <tr>
+  <th>Картинка</th>
+  <th>URL</th>
+  <th>Вставить после элемента</th>
+ </tr>
+ <tr class="td1">
+  <td><input type="file" name="baner" class="field" /></td>
+  <td><input type="text" name="link" class="field" style="width: 300px;" /></td>
+  <td align="center"><input type="text" name="ord" value="0" class="field" size="4" /></td>
+ </tr>
+ <tr class="td1">
+  <td colspan="3" align="center"><input type="image" src="image/btn-add.gif" alt="Добавить" title="Добавить" /></td>
+ </tr>
+</table>
+</form>

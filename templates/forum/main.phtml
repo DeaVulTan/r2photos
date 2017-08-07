@@ -1,0 +1,19 @@
+<?php if (sizeOf($posts) > 0) { ?>
+<table width="100%">
+<?php
+foreach ($posts as $row) {
+   $subj = $row['subject'];
+   if (!trim($subj)) {
+      $temp = Topics::GetRow(array('id' => $row['topic_id']));
+      $subj = 'Re: '.$temp['title'];
+   }
+?>
+<tr valign="top">
+ <td>
+  <?php echo $subj; ?><br />
+  <a href="topic_<?php echo $row['topic_id']; ?>.htm#last" title="Подробнее">подробнее</a>
+ </td>
+</tr>
+<?php } ?>
+</table>
+<?php } else echo "<p>Сообщений нет.</p>"; ?>

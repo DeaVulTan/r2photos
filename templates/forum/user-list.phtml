@@ -1,0 +1,20 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<?php if ($numPages > 1) { ?><div class="mb10"><?php echo Site::GetPageNavigator($page, $numPages, "users_list_%.htm"); ?></div><?php } ?>
+<table class="table w100">
+<tr>
+ <th>Ник</th>
+ <th>Дата регистрации</th>
+ <th>Сообщения</th>
+ <th>Подпись</th>
+ <th>Аватар</th>
+</tr>
+<?php foreach ($users as $user) { ?>
+<tr class="td1" align="center">
+ <td><a href="users_<?php echo $user["id"] ?>.htm"><?php echo $user['nikname']; ?></a></td>
+ <td><?php echo date("d.m.Y", $user["idate"]); ?></td>
+ <td><?php echo $user["posts"]; ?></td>
+ <td><?php echo $user["sig"]; ?></td>
+ <td><?php if ($user["avatar"] && file_exists(Site::GetParms('absolutePath').$user["avatar"])) { $iwh = getImageSize(Site::GetParms('absolutePath').$user["avatar"]); ?><img src="<?php echo $user['avatar']; ?>" <?php echo $iwh[3]; ?> alt="<?php echo htmlspecialchars($user['nikname']); ?>" /><?php } else echo '&nbsp;'; ?></td>
+</tr>
+<?php } ?>
+</table>

@@ -1,0 +1,17 @@
+<?php
+$tmp = $this->table->fields['poll_id']['parms']['items'];
+$arr1 = array(0 => array('id' => 0, 'question' => '[Все вопросы]'));
+if ($tmp) $arr1 = $arr1 + $tmp;
+?>
+<form name="filterForm" action="<?php echo $this->name; ?>-filter.htm" method="post">
+<input type="hidden" name="fromFF" value="1" />
+<table>
+<tr>
+ <td class="pr5">Вопрос</td>
+ <td class="pr20"><?php Action::Select('poll_id', Site::GetSession($this->name."-poll_id"), $arr1, ' class="field"', array('field' => 'question')); ?></td>
+ <td class="pr5">Поиск</td>
+ <td class="pr20"><?php Action::Input('like', Site::GetSession($this->name."-like"), ' class="field" style="width: 200px;"'); ?></td>
+ <td><input type="image" src="image/btn-search.gif" title="Искать" alt="Искать" /></td>
+</tr>
+</table>
+</form>

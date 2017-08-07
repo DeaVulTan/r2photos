@@ -1,0 +1,8 @@
+<form name="<?php echo $this->name; ?>Form" id="<?php echo $this->name; ?>Form" action="<?php echo $this->menuPath.$this->name; ?>/do" method="post" data-validate-style="alert">
+<table>
+ <tr>
+  <td nowrap="nowrap" align="right">Ваш e-mail:&nbsp;&nbsp;</td>
+  <td><input type="text" name="email" value="" class="input" data-rule-regexp="^[a-zA-Zа-яА-Я0-9-].*$" data-msg-regexp="Укажите Ваш e-mail!" data-rule-email="true" data-msg-email="Укажите правильно Ваш e-mail!"); />&nbsp;<input type="submit" value="Подписаться" /></td>
+ </tr>
+</table>
+</form>

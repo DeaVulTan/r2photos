@@ -1,0 +1,12 @@
+<h1 class="align" style="color: #6eccff;">Новости</h1>
+<div class="block main-news">
+  <?php $num = 0; foreach( $news as $row ) { $href = $this->menuPath.'news/'.( $row['id'] ).'-'.( $row['href'] ); ?>
+    <div class="block <?php if( $num > 1 ) { echo ' t-hide '; } ?> ">
+      <a href="<?php echo $href; ?>" title="<?php echo htmlspecialchars( $row['name'] ); ?>"><?php echo htmlspecialchars( $row['name'] ); ?> <span><?php echo date( 'd.m.Y', $row['idate'] ); ?></span></a>
+      <p><?php echo $row['announce']; ?></p>
+    </div>
+  <?php ++$num; } ?>
+</div>
+<div class="block news-more">
+  <a href="<?php echo $this->menuPath.'news'; ?>" title="Архив новостей">Архив новостей</a>
+</div>

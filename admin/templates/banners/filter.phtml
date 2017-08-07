@@ -1,0 +1,21 @@
+<?php
+$tmp = $this->table->fields['place_id']['parms']['items'];
+$arr = array(0 => array('id' => 0, 'name' => '[Все места]'));
+if ($tmp) $arr = $arr + $tmp;
+?>
+<form name="filterForm" action="<?php echo $this->name; ?>-filter.htm" method="post">
+<input type="hidden" name="fromFF" value="1" />
+<table>
+<tr>
+ <td class="pr5">Место</td>
+ <td class="pr20"><?php Action::Select('place_id', Site::GetSession($this->name."-place_id"), &$arr, ' class="field"', array('field' => 'name')); ?></td>
+ <td class="pr5">Поиск</td>
+ <td class="pr20"><?php Action::Input('like', Site::GetSession($this->name."-like"), ' class="field" style="width: 300px;"'); ?></td>
+ <?php if (defined('LANG')) { $tmp = array(0 => 'Все языки') + Site::GetLangs(); ?>
+ <td class="pr5">Язык</td>
+ <td class="pr20"><?php Action::Select('lang', Site::GetSession($this->name."-lang"), $tmp, ' class="field"'); ?></td>
+ <?php } ?>
+ <td><input type="image" src="image/btn-search.gif" title="Искать" alt="Искать" /></td>
+</tr>
+</table>
+</form>

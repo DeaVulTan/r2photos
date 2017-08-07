@@ -1,0 +1,14 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<form name="postForm" action="post_add.htm" method="post">
+<input type="hidden" value="<?php echo $this->parms['id']; ?>" name="topic_id" />
+<table class="table w100">
+ <tr class="td2" align="center">
+  <td colspan="2"><strong><a href="forum.htm" title="Форум">Форум</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="cat_<?php echo $forum['cat_id']; ?>.htm" title="<?php echo htmlspecialchars($cat['title']); ?>"><?php echo $cat['title']; ?></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<?php echo $forum['name']; ?></strong></td>
+ </tr>
+ <tr>
+  <td class="td2" nowrap="nowrap">Текст сообщения: </td>
+  <td class="w100 td1"><textarea name="text" class="input w100" rows="10" cols="100"><?php if ($this->parms['post']) echo "[quote]".$text."[/quote]\n\n"; if (Site::GetSession('textAddPostForum')) { echo Site::GetSession('textAddPostForum'); Site::SetSession('textAddPostForum', ''); } ?></textarea></td>
+ </tr>
+ <tr class="td1"><td colspan="2" align="center"><input type="submit" class="button" value="Отправить" /></td></tr>
+</table>
+</form>

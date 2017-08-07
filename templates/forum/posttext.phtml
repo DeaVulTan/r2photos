@@ -1,0 +1,33 @@
+<?php include(Site::GetTemplate('forum', 'navi')); ?>
+<table width="100%">
+ <tr><td align="center"><strong><a href="forum.htm" title="Форум">Форум</a> / <a href="cat_<?php echo $forum['cat_id']; ?>.htm"><?php echo $cat['title']; ?></a> / <a href="forum_<?php echo $forum['id']; ?>.htm"><?php echo $forum['name']; ?></a> / <?php echo $topic['title']; ?></strong></td></tr>
+</table>
+<br />
+<table class="table w100">
+<tr>
+ <th width="20%">Информация</th>
+ <th width="80%">Сообщение</th>
+</tr>
+<tr class="td1" valign="top">
+ <td>
+  <b>Автор: </b><a href="user_<?php echo $item['poster_id']; ?>.htm"><?php echo $item['user']['nikname']; ?></a><br />
+  <b>Сообщений: </b><?php echo Posts::GetCountRows(array('poster_id' => $item['poster_id'])); ?><br />
+  <b>На форуме c: </b><?php echo date("d.m.y", $item['user']['regdate']); ?>
+  <?php if ($item['user']['avatar'] && file_exists(Site::GetParms('absolutePath').$item['user']['avatar'])) { ?><br /><br /><div><a href="user_<?php echo $item['poster_id']; ?>.htm"><img src="<?php echo $item['user']['avatar']; ?>" /></a></div><?php } ?>
+ </td>
+ <td>
+   <div><?php echo preg_replace(array("/\[quote\]/", '/\[\/quote\]/', '/\[url ([^\]]+)\]/', '/\[\/url\]/'), array('<div class="quote">', '</div>', '<a href="\\1">', '</a>'), nl2br($item['text'])); ?></div><br />
+   <div class="small"><?php echo $item['user']['sig']; ?></div>
+ </td>
+</tr>
+<tr class="td2">
+ <td colspan="3" align="right">
+  <a href="usermail_<?php echo $item['user']['password']; ?>.htm" title="Послать email автору">Послать e-mail</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="post_new_<?php echo $topic['id']."_".$this->parms['post_id']; ?>.htm" title="Ответить">Ответить</a>
+ </td>
+</tr>
+</table>
+<br />
+<table width="100%">
+ <tr><td align="center"><strong><a href="forum.htm" title="Форум">Форум</a> / <a href="cat_<?php echo $forum['cat_id']; ?>.htm"><?php echo $cat['title']; ?></a> / <a href="forum_<?php echo $forum['id']; ?>.htm"><?php echo $forum['name']; ?></a> / <?php echo $topic['title']; ?></strong></td></tr>
+</table>

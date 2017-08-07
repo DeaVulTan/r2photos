@@ -1,0 +1,5 @@
+<?php if (sizeOf($items) > 0) { ?>
+<ul>
+ <?php foreach ($items as $id => $item) { ?><li><a href="<?php echo $this->menuPath; ?>fabrics/<?php echo $id; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a></li><?php } ?>
+</ul>
+<?php } ?>

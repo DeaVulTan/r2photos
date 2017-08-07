@@ -1,0 +1,79 @@
+<h1><?php echo ($this->itemId ? 'Редактирование' : 'Добавление'); ?> записи</h1>
+<div align="right" class="mb10"><a href="<?php echo Site::CreateUrl($this->name.'-list', $this->values); ?>" title="К списку записей"><img src="image/btn-list.gif" width="120" height="22" alt="К списку записей" /></a></div>
+<?php $this->form->header(); ?>
+<input type="hidden" name="changeFromAdmin" value="1" />
+<div class="filterBgr pt10 pb10 pl10 pr10 mb10">
+<table class="w100 mb10">
+<tr valign="top">
+ <td class="pr10 pb10" align="right">Активность:</td>
+ <td class="w100 pb10"><?php $this->form->field('is_active'); ?></td>
+</tr>
+<tr valign="top">
+ <td class="pr10 pb10" align="right">ФИО:</td>
+ <td class="w100 pb10"><?php $this->form->field('fio', ' class="field" style="width: 40%;"'); ?></td>
+</tr>
+<tr valign="top">
+ <td class="pr10 pb10" align="right">Логин:</td>
+ <td class="w100 pb10"><?php $this->form->field('login', ' class="field" size="20"'); ?> <span style="font-size: 10px;">Допустимые символы: цифры, буквы латинского алфавита, символы "_" и "-".</span></td>
+</tr>
+<tr valign="top">
+ <td class="pr10 pb10" align="right">Пароль:</td>
+ <td class="w100 pb10"><input type="text" name="password" class="field" size="20" /> <span style="font-size: 10px;">Допустимые символы: цифры, буквы латинского алфавита, символы "_" и "-".</span><?php if ($this->itemId) { ?><div class="small">Внимание! При внесении в это поле данных, пароль для аккаунта "<?php echo $this->table->data['login']; ?>" будет изменён!</div><?php } ?></td>
+</tr>
+<tr valign="top">
+ <td class="pr10 pb10" align="right" nowrap="nowrap">Права доступа:</td>
+ <td class="w100 pb10">
+  <table>
+   <tr valign="top">
+    <td class="pr30">
+     <b>Конфигурация</b><br />
+     <?php $this->form->field('is_config'); ?> - Настройки<br />
+     <?php $this->form->field('is_admins'); ?> - Права доступа<br />
+     <?php $this->form->field('is_users'); ?> - Пользователи<br />
+     <?php $this->form->field('is_ban'); ?> - Банерная реклама<br />
+     <b>SEO</b><br />
+     <?php $this->form->field('is_meta'); ?> - Метаинформация<br />
+    </td>
+    <td class="pr30">
+     <b>Прочие разделы</b><br />
+     <?php $this->form->field('is_news'); ?> - Новости<br />
+     <?php $this->form->field('is_actions'); ?> - Акции<br />
+     <?php /* ?><?php $this->form->field('is_articles'); ?> - Статьи<br />
+     <?php $this->form->field('is_faq'); ?> - Вопрос-ответ<br />
+     <?php $this->form->field('is_opinions'); ?> - Отзывы<br />
+     <?php $this->form->field('is_vacs'); ?> - Вакансии<br /><?php */ ?>
+     <?php $this->form->field('is_photographers'); ?> - Фотографы<br />
+     <?php $this->form->field('is_photo'); ?> - Фотоархив<br />
+     <?php /* ?><?php $this->form->field('is_votes'); ?> - Голосование<br />
+     <?php $this->form->field('is_licence'); ?> - Лицензии<br /><?php */ ?>
+     <?php $this->form->field('is_partners'); ?> - Партнёры<br />
+     <?php $this->form->field('is_callback'); ?> - Заявки обратного звонка<br />
+     <?php $this->form->field('is_activation'); ?> - Карты и активации<br />
+     <?php $this->form->field('is_locations'); ?> - Локации<br />
+     <?php $this->form->field('is_retouches'); ?> - Примеры ретуши<br />
+    </td>
+    <td>
+     <br />
+     <?php $this->form->field('is_catalog'); ?> - Каталог<br />
+     <?php $this->form->field('is_orders'); ?> - Заказы<br />
+     <?php /* ?><?php $this->form->field('is_forum'); ?> - Форум<br /><?php */ ?>
+     <?php $this->form->field('is_subscribe'); ?> - Подписчики / Рассылка<br />
+    </td>
+   </tr>
+   <tr><td colspan="3" class="pb10">&nbsp;</td></tr>
+   <tr valign="top">
+    <td colspan="3">
+     <div class="pb5"><?php $this->form->field('is_menu'); ?> - <b>Навигация</b> (доступ ко всем пунктам)</div>
+     <?php if (sizeOf($this->parms['menusAll']) > 0) foreach ($this->parms['menusAll'] as $idR => $item) { ?>
+     <?php Action::CheckBox('menus['.$idR.']', (in_array($idR, $this->parms['menus']) ? 1 : '')); echo ' - '.$item['name']."<br />"; ?>
+     <?php $this->GetList($idR, 20); ?>
+     <?php } else echo "Пункты меню не определены."; ?>
+    </td>
+   </tr>
+  </table>
+ </td>
+</tr>
+</table>
+</div>
+<table class="w100 mb20"><tr><td align="right"><input type="image" src="image/btn-<?php echo ($this->itemId ? 'edit' : 'add'); ?>.gif" alt="<?php echo ($this->itemId ? 'Изменить' : 'Добавить'); ?>" title="<?php echo ($this->itemId ? 'Изменить' : 'Добавить'); ?>" /></td></tr></table>
+<?php $this->form->footer(); ?>

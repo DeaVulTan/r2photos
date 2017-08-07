@@ -1,0 +1,20 @@
+<?php if (sizeOf($subparts) > 0) { ?>
+<ul>
+ <?php foreach ($subparts as $idS => $subpart) { ?><li><a href="<?php echo $urlSmall.'/'.($this->parms['action'] == 'cf' ? $idS.'/'.$this->parms['idF'] : $this->parms['idF'].'/'.$idS); ?>" title="<?php echo htmlspecialchars($subpart['name']); ?>"><?php echo $subpart['name']; ?></a></li><?php } ?>
+</ul>
+<?php } ?>
+<?php if (sizeOf($items) > 0) { ?>
+<table>
+ <tr>
+  <th>Фото</th>
+  <th>Наименование</th>
+ </tr>
+ <?php foreach ($items as $id => $item) { $class = ($class == 1 ? 2 : 1); ?>
+ <tr class="td<?php echo $class; ?>">
+  <td align="center"><a href="<?php echo $this->menuPath; ?>item/<?php echo $id; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><img src="<?php echo $item['picture_small']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" /></a></td>
+  <td><a href="<?php echo $this->menuPath; ?>item/<?php echo $id; ?>-<?php echo $item['href']; ?>" title="<?php echo htmlspecialchars($item['name']); ?>"><?php echo $item['name']; ?></a></td>
+ </tr>
+ <?php } ?>
+</table>
+<?php if ($numPages > 1) { ?><p><?php echo Site::GetPageNavigator($page, $numPages, $url.'/page/%'); ?></p><?php } ?>
+<?php } ?>
